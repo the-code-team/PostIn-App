@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:postin_app/pages/mapPage.dart';
+import 'package:postin_app/pages/eventsPage.dart';
+import 'package:postin_app/pages/profilePage.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -12,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _paginaActual = 0;
 
-  List<Widget> _paginas = [PaginaMapa(), PaginaEventos(), PaginaPerfil()];
+  List<Widget> _paginas = [MapPage(), EventsPage(), ProfilePage()];
 
   @override
   Widget build(BuildContext context) {
@@ -34,42 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.event), label: "Eventos"),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil")
         ],
-      ),
-    );
-  }
-}
-
-class PaginaMapa extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Mapa',
-        style: TextStyle(fontSize: 24.0),
-      ),
-    );
-  }
-}
-
-class PaginaPerfil extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Perfil',
-        style: TextStyle(fontSize: 24.0),
-      ),
-    );
-  }
-}
-
-class PaginaEventos extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Text(
-        'Perfil',
-        style: TextStyle(fontSize: 24.0),
       ),
     );
   }
