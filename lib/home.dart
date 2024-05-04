@@ -30,6 +30,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: _paginas[_paginaActual],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Theme.of(context).primaryColor,
+        unselectedItemColor: Theme.of(context).unselectedWidgetColor,
+        showUnselectedLabels: true,
         currentIndex: _paginaActual,
         onTap: (index) {
           setState(() {
