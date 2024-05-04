@@ -15,7 +15,7 @@ class MapPage extends StatelessWidget {
           ),
         ),
         children: [
-          buildSearchField(),
+          buildSearchField(context),
           // The expanded helps us so that the FlutterMap is not infinite. If the FlutterMap is infinite it cannot be placed in a column
           Expanded(
             child: FlutterMap(
@@ -35,7 +35,9 @@ class MapPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {},
+        backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(Icons.add, color: Colors.white),
+        shape: CircleBorder(),
       ),
     );
   }
@@ -45,24 +47,47 @@ class MapPage extends StatelessWidget {
         userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
       );
 
-  Widget buildSearchField() {
+  Widget buildSearchField(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 35, horizontal: 16),
-      child: TextFormField(
-        autofocus: false, // Esto es para que se abra el teclado automáticamente
-        autofillHints: [AutofillHints.email],
-        obscureText: false,
-        decoration: InputDecoration(
-          labelText: 'Post-In',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(40),
-            borderSide: BorderSide(width: 2),
+      child: Theme(
+        data: Theme.of(context).copyWith(
+          inputDecorationTheme: InputDecorationTheme(
+            filled: true,
+            fillColor: Theme.of(context).primaryColor.withOpacity(0.1),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(40),
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColor, width: 2),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(40),
+              borderSide:
+                  BorderSide(color: Theme.of(context).primaryColor, width: 2),
+            ),
+            labelStyle: TextStyle(
+                color: Theme.of(context)
+                    .primaryColor), // Cambia el color de la etiqueta
+            hintStyle: TextStyle(
+                color: Theme.of(context).primaryColor.withOpacity(
+                    0.5)), // Cambia el color del texto de sugerencia
           ),
-          filled: true,
-          contentPadding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
-          suffixIcon: Icon(Icons.filter_list_outlined),
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor:
+                Theme.of(context).primaryColor, // Cambia el color del cursor
+          ),
         ),
-        keyboardType: TextInputType.emailAddress,
+        child: TextFormField(
+          autofocus: false,
+          autofillHints: [AutofillHints.email],
+          obscureText: false,
+          decoration: InputDecoration(
+            labelText: 'Post-In',
+            contentPadding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+            suffixIcon: Icon(Icons.filter_list_outlined),
+          ),
+          keyboardType: TextInputType.emailAddress,
+        ),
       ),
     );
   }
