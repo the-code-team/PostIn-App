@@ -6,17 +6,24 @@ class MapPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FlutterMap(
-        options: MapOptions(
-          initialCenter: LatLng(38.699575, -0.474774),
-          initialZoom: 11,
-          interactionOptions: InteractionOptions(
-            flags: ~InteractiveFlag.doubleTapDragZoom,
-          ),
-        ),
+      body: Column(
         children: [
-          openStreetMapTileLayer,
           buildSearchField(),
+          // The expanded helps us so that the FlutterMap is not infinite. If the FlutterMap is infinite it cannot be placed in a column
+          Expanded(
+            child: FlutterMap(
+              options: MapOptions(
+                initialCenter: LatLng(38.699575, -0.474774),
+                initialZoom: 11,
+                interactionOptions: InteractionOptions(
+                  flags: ~InteractiveFlag.doubleTapDragZoom,
+                ),
+              ),
+              children: [
+                openStreetMapTileLayer,
+              ],
+            ),
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -35,7 +42,7 @@ class MapPage extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 35, horizontal: 16),
       child: TextFormField(
-        autofocus: false, // Esto es para que se abra el teclado automaticamente
+        autofocus: false, // Esto es para que se abra el teclado automáticamente
         autofillHints: [AutofillHints.email],
         obscureText: false,
         decoration: InputDecoration(
