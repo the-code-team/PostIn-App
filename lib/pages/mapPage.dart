@@ -42,7 +42,8 @@ class MapPage extends StatelessWidget {
 
   Widget buildSearchField(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 35, horizontal: 16),
+      padding: EdgeInsets.fromLTRB(
+          16, 35, 16, 15), // Ajusta el padding superior aquí
       child: Theme(
         data: Theme.of(context).copyWith(
           inputDecorationTheme: InputDecorationTheme(
@@ -76,7 +77,7 @@ class MapPage extends StatelessWidget {
           obscureText: false,
           decoration: InputDecoration(
             labelText: 'Post-In',
-            contentPadding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
             suffixIcon: Icon(Icons.filter_list_outlined),
           ),
           keyboardType: TextInputType.emailAddress,
