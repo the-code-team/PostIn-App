@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget buildSearchField(BuildContext context) {
   return Padding(
     padding:
-        EdgeInsets.fromLTRB(16, 35, 16, 15), // Ajusta el padding superior aquí
+        const EdgeInsets.fromLTRB(16, 35, 16, 15), // Ajusta el padding superior aquí
     child: Theme(
       data: Theme.of(context).copyWith(
         inputDecorationTheme: InputDecorationTheme(
@@ -34,9 +34,9 @@ Widget buildSearchField(BuildContext context) {
       ),
       child: TextFormField(
         autofocus: false,
-        autofillHints: [AutofillHints.email],
+        autofillHints: const [AutofillHints.email],
         obscureText: false,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           labelText: 'Post-In',
           contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 24),
           suffixIcon: Icon(Icons.filter_list_outlined),
