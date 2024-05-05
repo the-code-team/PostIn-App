@@ -23,16 +23,16 @@ class MapPage extends StatelessWidget {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
-                buildListItem(Icons.home, "Inicio"),
-                buildListItem(Icons.work, "Trabajo"),
-                buildListItem(Icons.school, "Escuela"),
-                buildListItem(Icons.home, "Inicio"),
-                buildListItem(Icons.work, "Trabajo"),
-                buildListItem(Icons.school, "Escuela"),
-                buildListItem(Icons.home, "Inicio"),
-                buildListItem(Icons.work, "Trabajo"),
-                buildListItem(Icons.school,
-                    "Escuela"), // Agrega más elementos según necesites
+                buildListEvent(Icons.home, "Inicio", context),
+                buildListEvent(Icons.work, "Trabajo", context),
+                buildListEvent(Icons.school, "Escuela", context),
+                buildListEvent(Icons.home, "Inicio", context),
+                buildListEvent(Icons.work, "Trabajo", context),
+                buildListEvent(Icons.school, "Escuela", context),
+                buildListEvent(Icons.home, "Inicio", context),
+                buildListEvent(Icons.work, "Trabajo", context),
+                buildListEvent(Icons.school, "Escuela", context),
+                // Agrega más elementos según necesites
               ],
             ),
           ),
@@ -50,25 +50,26 @@ class MapPage extends StatelessWidget {
     );
   }
 
-  Widget buildListItem(IconData icon, String text) {
-    return Container(
-      width: 100, // Ancho deseado para cada elemento
-      margin: EdgeInsets.all(8), // Margen entre los elementos
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            width: 50, // Ancho deseado para el icono
-            height: 50, // Altura deseada para el icono
-            decoration: BoxDecoration(
-              color: Colors.blue, // Color de fondo del botón
-              borderRadius: BorderRadius.circular(10), // Bordes redondeados
-            ),
-            child: Icon(icon, color: Colors.white), // Icono
-          ),
-          SizedBox(height: 8), // Espacio entre el icono y el texto
-          Text(text), // Texto debajo del icono
-        ],
+  Widget buildListEvent(IconData icon, String text, BuildContext context) {
+    final Color primaryColor = Theme.of(context).primaryColor;
+    return GestureDetector(
+      onTap: () {
+        // Acción a realizar cuando se presione el elemento de la lista
+      },
+      child: Padding(
+        padding: EdgeInsets.symmetric(
+            horizontal: 8), // Espaciado horizontal entre elementos
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(icon, size: 50, color: primaryColor), // Icono
+            SizedBox(height: 8), // Espacio entre el icono y el texto
+            Text(
+              text,
+              style: TextStyle(fontSize: 16), // Tamaño de fuente del texto
+            ), // Texto debajo del icono
+          ],
+        ),
       ),
     );
   }
