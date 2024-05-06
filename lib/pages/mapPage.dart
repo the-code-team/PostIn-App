@@ -7,7 +7,7 @@ class MapPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FlutterMap(
-        options: MapOptions(
+        options: const MapOptions(
           initialCenter: LatLng(38.699575, -0.474774),
           initialZoom: 11,
           interactionOptions: InteractionOptions(
