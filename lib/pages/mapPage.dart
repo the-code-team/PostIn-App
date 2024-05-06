@@ -16,14 +16,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FlutterMap(
-        options: const MapOptions(
-          initialCenter: LatLng(38.699575, -0.474774),
-          initialZoom: 11,
-          interactionOptions: InteractionOptions(
-            flags: ~InteractiveFlag.doubleTapDragZoom,
-          ),
-        ),
+      body: Column(
         children: [
           buildSearchField(context),
           SizedBox(
