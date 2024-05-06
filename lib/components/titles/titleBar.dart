@@ -4,7 +4,7 @@ Widget buildTitleBar(BuildContext context) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(16, 35, 16, 15),
     child: Container(
-      padding: EdgeInsets.fromLTRB(25, 12, 16, 12),
+      padding: EdgeInsets.fromLTRB(25, 2, 5, 2),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 225, 225, 225),
@@ -23,9 +23,14 @@ Widget buildTitleBar(BuildContext context) {
               fontSize: 18,
             ),
           ),
-          Icon(
-            Icons.filter_list_outlined,
-            color: Theme.of(context).primaryColor,
+          TextButton(
+            onPressed: () {
+              // Acción a realizar al presionar el botón
+            },
+            child: Icon(
+              Icons.filter_list_outlined,
+              color: Theme.of(context).primaryColor,
+            ),
           ),
         ],
       ),
