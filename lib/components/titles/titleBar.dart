@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Widget buildTitleBar(BuildContext context) {
+Widget buildTitleBar(BuildContext context, VoidCallback onFilterPressed) {
   return Padding(
     padding: const EdgeInsets.fromLTRB(16, 35, 16, 15),
     child: Container(
@@ -24,9 +24,8 @@ Widget buildTitleBar(BuildContext context) {
             ),
           ),
           TextButton(
-            onPressed: () {
-              // Acción a realizar al presionar el botón
-            },
+            onPressed:
+                onFilterPressed, // Llama a la función de callback cuando se presiona el botón de filtro
             child: Icon(
               Icons.filter_list_outlined,
               color: Theme.of(context).primaryColor,
