@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:postin_app/components/titles/titleBar.dart';
 import 'package:postin_app/components/map/map.dart';
-import 'package:postin_app/components/selected_bar/eventSelected.dart';
+import 'package:postin_app/components/selected_bar/events/eventSelected.dart';
+import 'package:postin_app/components/selected_bar/selectedEventBar.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key});
@@ -19,47 +20,13 @@ class _MapPageState extends State<MapPage> {
       body: Column(
         children: [
           buildTitleBar(context),
-          SizedBox(
-            height: 100, // Desired height for the list of items
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: [
-                EventListItem(
-                  icon: Icons.home,
-                  text: "Home",
-                  index: 0,
-                  selectedIndex: selectedIndex,
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                ),
-                EventListItem(
-                  icon: Icons.work,
-                  text: "Work",
-                  index: 1,
-                  selectedIndex: selectedIndex,
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                ),
-                EventListItem(
-                  icon: Icons.school,
-                  text: "School",
-                  index: 2,
-                  selectedIndex: selectedIndex,
-                  onTap: (index) {
-                    setState(() {
-                      selectedIndex = index;
-                    });
-                  },
-                ),
-                // Add more items as needed
-              ],
-            ),
+          EventListWidget(
+            selectedIndex: selectedIndex,
+            onTap: (index) {
+              setState(() {
+                selectedIndex = index;
+              });
+            },
           ),
           Expanded(
             child: MapComponent(),
