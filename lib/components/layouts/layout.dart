@@ -39,7 +39,7 @@ class _LayoutState extends State<Layout> {
             _paginaActual = index;
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.map), label: "Map"),
           BottomNavigationBarItem(
               icon: Icon(Icons.edit_location_alt_outlined), label: "Proposes"),
