@@ -15,9 +15,9 @@ class Layout extends StatefulWidget {
 }
 
 class _LayoutState extends State<Layout> {
-  int _paginaActual = 0;
+  int _actualPage = 0;
 
-  List<Widget> _paginas = [
+  List<Widget> _pages = [
     MapPage(),
     ProposalsPage(),
     EventsPage(),
@@ -28,15 +28,15 @@ class _LayoutState extends State<Layout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _paginas[_paginaActual],
+      body: _pages[_actualPage],
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Theme.of(context).primaryColor,
         unselectedItemColor: Theme.of(context).unselectedWidgetColor,
         showUnselectedLabels: true,
-        currentIndex: _paginaActual,
+        currentIndex: _actualPage,
         onTap: (index) {
           setState(() {
-            _paginaActual = index;
+            _actualPage = index;
           });
         },
         items: const [
