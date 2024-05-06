@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:postin_app/components/search_bar/searchBar.dart';
+import 'package:postin_app/components/titles/titleBar.dart';
 import 'package:postin_app/components/map/map.dart';
 import 'package:postin_app/components/selected_bar/eventSelected.dart';
 
@@ -18,7 +18,7 @@ class _MapPageState extends State<MapPage> {
     return Scaffold(
       body: Column(
         children: [
-          buildSearchField(context),
+          buildTitleBar(context),
           SizedBox(
             height: 100, // Desired height for the list of items
             child: ListView(
