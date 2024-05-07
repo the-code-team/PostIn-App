@@ -2,27 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:postin_app/pages/chatPage.dart';
 
 class GroupsPage extends StatelessWidget {
+  //Son grupos de ejemplo dolamente
   final List<Map<String, dynamic>> groups = [
     {
-      'name': 'Grupo 1',
-      'lastMessage': 'Joui: ¡Hola!',
-      'time': '25 de abril, 22:04'
+      'name': 'Group 1',
+      'lastMessage': 'Joui: ¡Hello!',
+      'time': '25 of april, 22:04'
     },
     {
-      'name': 'Grupo 2',
-      'lastMessage': 'Marcos: ¿Unas cerves?',
-      'time': '24 de abril, 15:32'
+      'name': 'Group 2',
+      'lastMessage': 'Marcos: ¿Do you want go to the café?',
+      'time': '24 of april, 15:32'
     }
-    // Puedes añadir más grupos aquí
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Grupos'),
+        //Titulo de la página
+        title: Text('Groups'),
       ),
       body: ListView.builder(
+        //Lista donde salen los grupos
         itemCount: groups.length,
         itemBuilder: (context, index) {
           var group = groups[index];
@@ -36,6 +38,7 @@ class GroupsPage extends StatelessWidget {
               );
             },
             child: ListTile(
+              //Icono del grupo
               leading: CircleAvatar(
                 backgroundColor: Colors.blueAccent,
                 child: Text(group['name'][0]),
