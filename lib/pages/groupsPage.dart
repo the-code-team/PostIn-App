@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:postin_app/pages/chatPage.dart';
 
 class GroupsPage extends StatelessWidget {
-  //Son grupos de ejemplo dolamente
   final List<Map<String, dynamic>> groups = [
     {
       'name': 'Group 1',
@@ -20,11 +19,9 @@ class GroupsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //Titulo de la página
         title: Text('Groups'),
       ),
       body: ListView.builder(
-        //Lista donde salen los grupos
         itemCount: groups.length,
         itemBuilder: (context, index) {
           var group = groups[index];
@@ -32,13 +29,27 @@ class GroupsPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => ChatPage(groupName: group['name']),
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return ChatPage(groupName: group['name']);
+                  },
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    const begin = Offset(1.0, 0.0);
+                    const end = Offset.zero;
+                    const curve = Curves.easeInOut;
+                    var tween = Tween(begin: begin, end: end)
+                        .chain(CurveTween(curve: curve));
+                    var offsetAnimation = animation.drive(tween);
+                    return SlideTransition(
+                      position: offsetAnimation,
+                      child: child,
+                    );
+                  },
                 ),
               );
             },
             child: ListTile(
-              //Icono del grupo
               leading: CircleAvatar(
                 backgroundColor: Colors.blueAccent,
                 child: Text(group['name'][0]),
