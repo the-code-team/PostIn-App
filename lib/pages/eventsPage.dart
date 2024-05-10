@@ -8,55 +8,69 @@ class EventsPage extends StatelessWidget {
         title: Text('Eventos'),
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            //Proximo evento
-            Container(
-              margin: EdgeInsets.all(20),
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Image.asset(
-                    'assets/next_event_image.jpg',
-                    height: 200,
-                    fit: BoxFit.cover,
-                  ),
-                  SizedBox(height: 10),
-                  Text(
-                    'Nombre del Próximo Evento',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+        child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              //Proximo evento
+              Card(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Container(
+                        margin: EdgeInsets.all(10),
+                        child: Image.asset(
+                          'assets/next_event_image.jpg',
+                          height: 200,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
                     ),
-                  ),
-                  Text(
-                    'Host: Nombre del Host',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  Text(
-                    'Duración: DD/MM/YY - DD/MM/YY',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                ],
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Nombre del Próximo Evento',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Text(
+                            'Host: Nombre del Host',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                          Text(
+                            'Duración: DD/MM/YY - DD/MM/YY',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            //Eventos que ya han pasado
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
+              //Eventos que ya han pasado
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text(
-                    'Eventos Pasados',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                  Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Text(
+                      'Eventos Pasados',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   SizedBox(height: 10),
@@ -80,8 +94,8 @@ class EventsPage extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
