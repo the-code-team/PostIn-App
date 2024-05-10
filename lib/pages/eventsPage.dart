@@ -64,7 +64,7 @@ class EventsPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 20),
+                    padding: EdgeInsets.only(top: 20, bottom: 10),
                     child: Text(
                       'Eventos Pasados',
                       style: TextStyle(
@@ -73,7 +73,6 @@ class EventsPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: 10),
                   buildPastEventItem(
                     'assets/next_event_image.jpg',
                     'Nombre del Evento 1',
@@ -103,16 +102,10 @@ class EventsPage extends StatelessWidget {
 
   Widget buildPastEventItem(
       String image, String name, String host, String duration) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
-      ),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: Row(
         children: [
-          // Imagen del evento
           ClipRRect(
             borderRadius: BorderRadius.circular(8),
             child: Image.asset(
@@ -123,7 +116,6 @@ class EventsPage extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10),
-          // Información del evento
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
