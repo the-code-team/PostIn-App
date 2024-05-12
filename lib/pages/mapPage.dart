@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:postin_app/components/titles/titleBar.dart';
 import 'package:postin_app/components/map/map.dart';
-import 'package:postin_app/components/selected_bar/events/eventSelected.dart';
-import 'package:postin_app/components/selected_bar/selectedEventBar.dart';
+import 'package:postin_app/components/selected_bar/eventSelected.dart';
 
 class MapPage extends StatefulWidget {
   const MapPage({Key? key});
@@ -13,7 +12,8 @@ class MapPage extends StatefulWidget {
 
 class _MapPageState extends State<MapPage> {
   int selectedIndex = 0; // State that stores the index of the selected item
-  bool isEventListVisible = false; // State to control the visibility of EventListWidget
+  bool isEventListVisible =
+      false; // State to control the visibility of EventListWidget
 
   @override
   Widget build(BuildContext context) {
@@ -22,22 +22,10 @@ class _MapPageState extends State<MapPage> {
         children: [
           buildTitleBar(context, () {
             setState(() {
-              isEventListVisible = !isEventListVisible; // Toggle visibility of EventListWidget
+              isEventListVisible =
+                  !isEventListVisible; // Toggle visibility of EventListWidget
             });
           }),
-          AnimatedCrossFade(
-            duration: const Duration(milliseconds: 300),
-            crossFadeState: isEventListVisible ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-            firstChild: Container(), // Container for collapsed state
-            secondChild: EventListWidget( // EventListWidget for expanded state
-              selectedIndex: selectedIndex,
-              onTap: (index) {
-                setState(() {
-                  selectedIndex = index;
-                });
-              },
-            ),
-          ),
           Expanded(
             child: MapComponent(),
           ),
