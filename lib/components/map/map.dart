@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:postin_app/components/titles/titleBar.dart';
 
 class MapComponent extends StatelessWidget {
   const MapComponent({Key? key});
@@ -22,6 +23,7 @@ class MapComponent extends StatelessWidget {
       ),
       children: [
         openStreetMapTileLayer,
+        buildTitleBar(context),
       ],
     );
   }
