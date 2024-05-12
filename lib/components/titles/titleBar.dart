@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-Widget buildTitleBar(BuildContext context, VoidCallback onFilterPressed) {
+Widget buildTitleBar(BuildContext context) {
   return Padding(
-    padding: const EdgeInsets.fromLTRB(16, 35, 16, 15),
+    padding: const EdgeInsets.fromLTRB(16, 40, 16, 15),
     child: ElevatedButton(
       onPressed: () {
         // Acción
@@ -10,7 +10,7 @@ Widget buildTitleBar(BuildContext context, VoidCallback onFilterPressed) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
+          const Text(
             "Post-In",
             style: TextStyle(
               fontSize: 18,
