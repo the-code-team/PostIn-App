@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'ConfigurationPage.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -112,15 +113,16 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(height: 5),
                     Divider(),
                     SizedBox(height: 5),
-                    buildListItem(Icons.person, 'Informacion Personal'),
-                    buildListItem(Icons.interests, 'Intereses'),
                     buildListItem(
-                        Icons.insert_page_break_outlined, 'Tu biografia'),
-                    buildListItem(
-                        Icons.security, 'Configuraciones de seguridad'),
-                    buildListItem(
-                        Icons.app_blocking_rounded, 'Usuarios bloqueados'),
-                    buildListItem(Icons.logout, 'Cerrar sesion'),
+                        Icons.person, 'Informacion Personal', context),
+                    buildListItem(Icons.interests, 'Intereses', context),
+                    buildListItem(Icons.insert_page_break_outlined,
+                        'Tu biografia', context),
+                    buildListItem(Icons.security,
+                        'Configuraciones de seguridad', context),
+                    buildListItem(Icons.app_blocking_rounded,
+                        'Usuarios bloqueados', context),
+                    buildListItem(Icons.logout, 'Cerrar sesion', context),
                   ],
                 ),
               ),
@@ -131,15 +133,26 @@ class ProfilePage extends StatelessWidget {
     );
   }
 
-  Widget buildListItem(IconData icon, String title) {
+  Widget buildListItem(IconData icon, String title, BuildContext context) {
     return Column(
       children: [
         ListTile(
+          onTap: () => navigateToPage(context, title),
           leading: Icon(icon),
           title: Text(title),
         ),
         Divider(),
       ],
+    );
+    ;
+  }
+
+  void navigateToPage(BuildContext context, String title) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ConfigurationPage(title: title),
+      ),
     );
   }
 }
