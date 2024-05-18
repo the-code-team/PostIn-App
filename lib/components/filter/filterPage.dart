@@ -8,7 +8,6 @@ class EventsFilterPage extends StatefulWidget {
 class _EventsFilterPageState extends State<EventsFilterPage> {
   // Variables to store filter states
   bool _isPopularSelected = false;
-  bool _isNearbySelected = false;
   RangeValues _priceRange = RangeValues(0, 10000);
 
   @override
@@ -22,7 +21,6 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               // Reset all parameters
               setState(() {
                 _isPopularSelected = false;
-                _isNearbySelected = false;
                 _priceRange = RangeValues(0, 10000);
               });
             },
@@ -69,22 +67,37 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             ),
             Divider(),
             Text(
-              'Near you',
+              'Search Range',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 24, // Aumentado el tamaño del texto
                 fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 10),
-            SwitchListTile(
-              title: Text('Nearby'),
-              value: _isNearbySelected,
-              onChanged: (value) {
-                setState(() {
-                  _isNearbySelected = value;
-                });
+            GestureDetector(
+              onTap: () {
+                // Navigate to another screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AnotherScreen()),
+                );
               },
+              child: Row(
+                children: [
+                  Icon(Icons.location_on_outlined,
+                      size: 30), // Aumentado el tamaño del icono
+                  SizedBox(width: 10),
+                  Text(
+                    'View search range',
+                    style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 20, // Aumentado el tamaño del texto
+                    ),
+                  ),
+                ],
+              ),
             ),
+            SizedBox(height: 10),
             Divider(),
             Center(
               child: ElevatedButton(
@@ -97,6 +110,20 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class AnotherScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Nearby Events'),
+      ),
+      body: Center(
+        child: Text('List of nearby events will be displayed here.'),
       ),
     );
   }
