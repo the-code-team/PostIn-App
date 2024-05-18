@@ -40,42 +40,14 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Price Range:',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-              '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            SizedBox(height: 10),
-            SliderTheme(
-              data: SliderThemeData(
-                trackHeight: 2.0, // Ancho de la barra del slider
-              ),
-              child: RangeSlider(
-                values: _priceRange,
-                min: 0,
-                max: 10000,
-                divisions: 10000,
-                onChanged: (RangeValues values) {
-                  setState(() {
-                    _priceRange = values;
-                  });
-                },
-                labels: RangeLabels(
-                  '\$${_priceRange.start.round()}',
-                  '\$${_priceRange.end.round()}',
-                ),
-                activeColor: Theme.of(context)
-                    .primaryColor, // Color principal de la aplicación
-              ),
+            priceRangeSlider(
+              context,
+              _priceRange,
+              (RangeValues values) {
+                setState(() {
+                  _priceRange = values;
+                });
+              },
             ),
             Divider(),
             Text(
@@ -128,4 +100,48 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
       ),
     );
   }
+}
+
+Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
+    Function(RangeValues) onChanged) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Price Range:',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      Text(
+        '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
+        style: TextStyle(
+          fontSize: 18,
+          fontWeight: FontWeight.normal,
+        ),
+      ),
+      SizedBox(height: 10),
+      SliderTheme(
+        data: SliderThemeData(
+          trackHeight: 2.0, // Ancho de la barra del slider
+          activeTrackColor: Theme.of(context)
+              .primaryColor, // Color principal de la aplicación
+        ),
+        child: RangeSlider(
+          values: _priceRange,
+          min: 0,
+          max: 10000,
+          divisions: 10000,
+          onChanged: onChanged,
+          labels: RangeLabels(
+            '\$${_priceRange.start.round()}',
+            '\$${_priceRange.end.round()}',
+          ),
+          activeColor: Theme.of(context)
+              .primaryColor, // Color principal de la aplicación
+        ),
+      ),
+    ],
+  );
 }
