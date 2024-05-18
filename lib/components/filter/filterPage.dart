@@ -15,7 +15,25 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Filtrar Eventos'),
+        title: Text('Filtrar'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Restablecer todos los parámetros
+              setState(() {
+                _isFreeSelected = false;
+                _isPopularSelected = false;
+                _isNearbySelected = false;
+              });
+            },
+            child: Text(
+              'Restablecer parámetros',
+              style: TextStyle(
+                color: Colors.blue,
+              ),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
