@@ -66,38 +66,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               },
             ),
             Divider(),
-            Text(
-              'Search Range',
-              style: TextStyle(
-                fontSize: 24, // Aumentado el tamaño del texto
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            GestureDetector(
-              onTap: () {
-                // Navigate to another screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => AnotherScreen()),
-                );
-              },
-              child: Row(
-                children: [
-                  Icon(Icons.location_on_outlined,
-                      size: 30), // Aumentado el tamaño del icono
-                  SizedBox(width: 10),
-                  Text(
-                    'View search range',
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 20, // Aumentado el tamaño del texto
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 10),
+            searchRange(context),
             Divider(),
             Center(
               child: ElevatedButton(
@@ -127,6 +96,45 @@ class AnotherScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget searchRange(BuildContext context) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Search Range',
+        style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      SizedBox(height: 10),
+      GestureDetector(
+        onTap: () {
+          // Navigate to another screen
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AnotherScreen()),
+          );
+        },
+        child: Row(
+          children: [
+            Icon(Icons.location_on_outlined, size: 30),
+            SizedBox(width: 10),
+            Text(
+              'View search range',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 20,
+              ),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(height: 10),
+    ],
+  );
 }
 
 Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
