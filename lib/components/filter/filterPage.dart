@@ -55,22 +55,27 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               ),
             ),
             SizedBox(height: 10),
-            RangeSlider(
-              values: _priceRange,
-              min: 0,
-              max: 10000,
-              divisions: 10000,
-              onChanged: (RangeValues values) {
-                setState(() {
-                  _priceRange = values;
-                });
-              },
-              labels: RangeLabels(
-                '\$${_priceRange.start.round()}',
-                '\$${_priceRange.end.round()}',
+            SliderTheme(
+              data: SliderThemeData(
+                trackHeight: 2.0, // Ancho de la barra del slider
               ),
-              activeColor: Theme.of(context)
-                  .primaryColor, // Color principal de la aplicación
+              child: RangeSlider(
+                values: _priceRange,
+                min: 0,
+                max: 10000,
+                divisions: 10000,
+                onChanged: (RangeValues values) {
+                  setState(() {
+                    _priceRange = values;
+                  });
+                },
+                labels: RangeLabels(
+                  '\$${_priceRange.start.round()}',
+                  '\$${_priceRange.end.round()}',
+                ),
+                activeColor: Theme.of(context)
+                    .primaryColor, // Color principal de la aplicación
+              ),
             ),
             Divider(),
             Text(
