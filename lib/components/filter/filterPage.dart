@@ -7,9 +7,9 @@ class EventsFilterPage extends StatefulWidget {
 
 class _EventsFilterPageState extends State<EventsFilterPage> {
   // Variables to store filter states
-  bool _isFreeSelected = false;
   bool _isPopularSelected = false;
   bool _isNearbySelected = false;
+  RangeValues _priceRange = RangeValues(0, 10000);
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +21,15 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             onPressed: () {
               // Reset all parameters
               setState(() {
-                _isFreeSelected = false;
                 _isPopularSelected = false;
                 _isNearbySelected = false;
+                _priceRange = RangeValues(0, 10000);
               });
             },
             child: Text(
               'Reset parameters',
               style: TextStyle(
-                color: Colors.blue,
+                color: Theme.of(context).primaryColor,
               ),
             ),
           ),
@@ -41,21 +41,36 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Price',
+              'Price Range:',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
+            Text(
+              '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+              ),
+            ),
             SizedBox(height: 10),
-            SwitchListTile(
-              title: Text('Free'),
-              value: _isFreeSelected,
-              onChanged: (value) {
+            RangeSlider(
+              values: _priceRange,
+              min: 0,
+              max: 10000,
+              divisions: 10000,
+              onChanged: (RangeValues values) {
                 setState(() {
-                  _isFreeSelected = value;
+                  _priceRange = values;
                 });
               },
+              labels: RangeLabels(
+                '\$${_priceRange.start.round()}',
+                '\$${_priceRange.end.round()}',
+              ),
+              activeColor: Theme.of(context)
+                  .primaryColor, // Color principal de la aplicación
             ),
             Divider(),
             Text(
