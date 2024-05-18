@@ -15,10 +15,11 @@ Widget buildTitleBar(BuildContext context) {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
+          Text(
             "Post-In",
             style: TextStyle(
               fontSize: 18,
+              color: Theme.of(context).primaryColor,
             ),
           ),
           Icon(
