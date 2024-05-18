@@ -6,7 +6,7 @@ class EventsFilterPage extends StatefulWidget {
 }
 
 class _EventsFilterPageState extends State<EventsFilterPage> {
-  // Variables para almacenar los estados de los filtros
+  // Variables to store filter states
   bool _isFreeSelected = false;
   bool _isPopularSelected = false;
   bool _isNearbySelected = false;
@@ -15,11 +15,11 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Filtrar'),
+        title: Text('Filter'),
         actions: [
           TextButton(
             onPressed: () {
-              // Restablecer todos los parámetros
+              // Reset all parameters
               setState(() {
                 _isFreeSelected = false;
                 _isPopularSelected = false;
@@ -27,7 +27,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               });
             },
             child: Text(
-              'Restablecer parámetros',
+              'Reset parameters',
               style: TextStyle(
                 color: Colors.blue,
               ),
@@ -41,7 +41,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Precio',
+              'Price',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -49,7 +49,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             ),
             SizedBox(height: 10),
             SwitchListTile(
-              title: Text('Gratis'),
+              title: Text('Free'),
               value: _isFreeSelected,
               onChanged: (value) {
                 setState(() {
@@ -59,7 +59,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             ),
             Divider(),
             Text(
-              'Popularidad',
+              'Popularity',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -77,7 +77,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             ),
             Divider(),
             Text(
-              'Cerca de ti',
+              'Near you',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -85,7 +85,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             ),
             SizedBox(height: 10),
             SwitchListTile(
-              title: Text('Cercanos'),
+              title: Text('Nearby'),
               value: _isNearbySelected,
               onChanged: (value) {
                 setState(() {
@@ -97,10 +97,10 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Aplicar filtros y cerrar la página
+                  // Apply filters and close the page
                   Navigator.pop(context);
                 },
-                child: Text('Aplicar'),
+                child: Text('Apply'),
               ),
             ),
           ],
