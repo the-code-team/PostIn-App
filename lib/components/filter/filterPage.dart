@@ -60,7 +60,11 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               },
             ),
             Divider(),
-            popularity(_isPopularSelected),
+            popularity(_isPopularSelected, (value) {
+              setState(() {
+                _isPopularSelected = value;
+              });
+            }),
             Divider(),
             searchRange(context, _searchRange, (int value) {
               setState(() {
@@ -264,7 +268,7 @@ Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
   );
 }
 
-Widget popularity(bool _isPopularSelected) {
+Widget popularity(bool _isPopularSelected, Function(bool) onChanged) {
   return Column(
     crossAxisAlignment:
         CrossAxisAlignment.start, // Alinea el contenido a la izquierda
@@ -283,10 +287,7 @@ Widget popularity(bool _isPopularSelected) {
           Switch(
             // Utiliza un Switch en lugar de un SwitchListTile para tener más control
             value: _isPopularSelected,
-            onChanged: (value) {
-              // No es necesario utilizar setState aquí
-              _isPopularSelected = value;
-            },
+            onChanged: onChanged,
           ),
         ],
       ),
