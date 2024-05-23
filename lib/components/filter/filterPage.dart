@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:postin_app/components/filter/components/searchRange.dart';
 
 class EventsFilterPage extends StatefulWidget {
   @override
@@ -84,20 +85,6 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   }
 }
 
-class AnotherScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Nearby Events'),
-      ),
-      body: Center(
-        child: Text('List of nearby events will be displayed here.'),
-      ),
-    );
-  }
-}
-
 Widget searchRange(BuildContext context) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -105,7 +92,7 @@ Widget searchRange(BuildContext context) {
       Text(
         'Search Range',
         style: TextStyle(
-          fontSize: 24,
+          fontSize: 20,
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -115,7 +102,7 @@ Widget searchRange(BuildContext context) {
           // Navigate to another screen
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => AnotherScreen()),
+            MaterialPageRoute(builder: (context) => SearchRange()),
           );
         },
         child: Row(
