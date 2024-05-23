@@ -88,10 +88,16 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Apply filters and close the page
+                  // Aplicar filtros y cerrar la página
                   Navigator.pop(context);
                 },
-                child: Text('Apply'),
+                child: Text(
+                  'Aply',
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .primaryColor, // Color del texto ajustado
+                  ),
+                ), // Texto en español
               ),
             ),
           ],
