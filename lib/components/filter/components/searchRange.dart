@@ -49,7 +49,7 @@ class _SearchRangeState extends State<SearchRange> {
               value: _currentRangeValue,
               min: 10,
               max: _maxRangeValue,
-              divisions: 20,
+              divisions: 18,
               label: _currentRangeValue == _maxRangeValue
                   ? 'Sin límites'
                   : _currentRangeValue.round().toString(),
@@ -63,12 +63,8 @@ class _SearchRangeState extends State<SearchRange> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Implementar la funcionalidad de búsqueda aquí
-                  if (_currentRangeValue == _maxRangeValue) {
-                    print('Buscar sin límites');
-                  } else {
-                    print('Buscar a ${_currentRangeValue.round()} km de mí');
-                  }
+                  // Devuelve el valor a la pantalla anterior
+                  Navigator.pop(context, _currentRangeValue.round());
                 },
                 child: Text(
                   _currentRangeValue == _maxRangeValue
