@@ -10,6 +10,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   // Variables to store filter states
   bool _isPopularSelected = false;
   RangeValues _priceRange = RangeValues(0, 10000);
+  int _searchRange = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               setState(() {
                 _isPopularSelected = false;
                 _priceRange = RangeValues(0, 10000);
+                _searchRange = 100;
               });
             },
             child: Text(
@@ -67,7 +69,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               },
             ),
             Divider(),
-            searchRange(context),
+            searchRange(context, _searchRange),
             Divider(),
             Center(
               child: ElevatedButton(
@@ -85,7 +87,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   }
 }
 
-Widget searchRange(BuildContext context) {
+Widget searchRange(BuildContext context, int _searchRange) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -102,7 +104,10 @@ Widget searchRange(BuildContext context) {
           // Navigate to another screen
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => SearchRange()),
+            MaterialPageRoute(
+                builder: (context) => SearchRange(
+                      initialRangeValue: _searchRange,
+                    )),
           );
         },
         child: Row(
