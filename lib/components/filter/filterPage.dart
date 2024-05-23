@@ -34,6 +34,13 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
                 _isPopularSelected = false;
                 _priceRange = RangeValues(0, 10000);
                 _searchRange = 100;
+                _rangeDates = RangeValues(
+                  DateTime.now().millisecondsSinceEpoch.toDouble(),
+                  DateTime.utc(DateTime.now().year, DateTime.now().month + 1,
+                          DateTime.now().day)
+                      .millisecondsSinceEpoch
+                      .toDouble(),
+                );
               });
             },
             child: Text(
