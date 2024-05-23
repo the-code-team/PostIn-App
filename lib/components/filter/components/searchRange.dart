@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
 
 class SearchRange extends StatefulWidget {
+  final int initialRangeValue;
+
+  SearchRange({required this.initialRangeValue});
+
   @override
   _SearchRangeState createState() => _SearchRangeState();
 }
 
 class _SearchRangeState extends State<SearchRange> {
-  double _currentRangeValue = 50;
+  late double _currentRangeValue;
   final double _maxRangeValue = 100;
+
+  @override
+  void initState() {
+    super.initState();
+    _currentRangeValue = widget.initialRangeValue.toDouble();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Alcoy, España'),
+        title: Text('Search Range'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -37,7 +47,7 @@ class _SearchRangeState extends State<SearchRange> {
             ),
             Slider(
               value: _currentRangeValue,
-              min: 0,
+              min: 10,
               max: _maxRangeValue,
               divisions: 20,
               label: _currentRangeValue == _maxRangeValue
