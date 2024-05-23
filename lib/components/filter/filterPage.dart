@@ -181,7 +181,7 @@ Widget rangeDates(
             firstDate: DateTime(2000),
             lastDate: DateTime(2100),
             initialDateRange: DateTimeRange(
-              start: DateTime.now().subtract(Duration(days: 7)),
+              start: DateTime.now().subtract(Duration(days: 31)),
               end: DateTime.now(),
             ),
           );
