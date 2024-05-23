@@ -69,7 +69,11 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               },
             ),
             Divider(),
-            searchRange(context, _searchRange),
+            searchRange(context, _searchRange, (int value) {
+              setState(() {
+                _searchRange = value;
+              });
+            }),
             Divider(),
             Center(
               child: ElevatedButton(
@@ -87,7 +91,11 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   }
 }
 
-Widget searchRange(BuildContext context, int _searchRange) {
+Widget searchRange(
+  BuildContext context,
+  int _searchRange,
+  Function(int) onRangeChanged,
+) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -100,22 +108,27 @@ Widget searchRange(BuildContext context, int _searchRange) {
       ),
       SizedBox(height: 10),
       GestureDetector(
-        onTap: () {
+        onTap: () async {
           // Navigate to another screen
-          Navigator.push(
+          final result = await Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => SearchRange(
-                      initialRangeValue: _searchRange,
-                    )),
+              builder: (context) => SearchRange(
+                initialRangeValue: _searchRange,
+              ),
+            ),
           );
+
+          if (result != null) {
+            onRangeChanged(int.parse(result.toString()));
+          }
         },
         child: Row(
           children: [
             Icon(Icons.location_on_outlined, size: 30),
             SizedBox(width: 10),
             Text(
-              'View search range',
+              'View search range: $_searchRange km',
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 20,
