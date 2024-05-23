@@ -60,23 +60,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               },
             ),
             Divider(),
-            Text(
-              'Popularity',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 10),
-            SwitchListTile(
-              title: Text('Popular'),
-              value: _isPopularSelected,
-              onChanged: (value) {
-                setState(() {
-                  _isPopularSelected = value;
-                });
-              },
-            ),
+            popularity(_isPopularSelected),
             Divider(),
             searchRange(context, _searchRange, (int value) {
               setState(() {
@@ -275,6 +259,36 @@ Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
           activeColor: Theme.of(context)
               .primaryColor, // Color principal de la aplicación
         ),
+      ),
+    ],
+  );
+}
+
+Widget popularity(bool _isPopularSelected) {
+  return Column(
+    crossAxisAlignment:
+        CrossAxisAlignment.start, // Alinea el contenido a la izquierda
+    children: [
+      Row(
+        mainAxisAlignment: MainAxisAlignment
+            .spaceBetween, // Alinea los elementos a los extremos
+        children: [
+          Text(
+            'Popularity',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Switch(
+            // Utiliza un Switch en lugar de un SwitchListTile para tener más control
+            value: _isPopularSelected,
+            onChanged: (value) {
+              // No es necesario utilizar setState aquí
+              _isPopularSelected = value;
+            },
+          ),
+        ],
       ),
     ],
   );
