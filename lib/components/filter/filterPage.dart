@@ -158,8 +158,7 @@ Widget rangeDates(
   Function(RangeValues) onDateChanged,
 ) {
   // Convertimos las fechas en formato legible
-  String _formattedDate(double milliseconds) {
-    final date = DateTime.fromMillisecondsSinceEpoch(milliseconds.toInt());
+  String _formattedDate(DateTime date) {
     return '${date.day}/${date.month}/${date.year}';
   }
 
@@ -178,11 +177,11 @@ Widget rangeDates(
         onTap: () async {
           final DateTimeRange? picked = await showDateRangePicker(
             context: context,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2100),
+            firstDate: DateTime.now(),
+            lastDate: DateTime.now().add(Duration(days: 365 * 100)),
             initialDateRange: DateTimeRange(
-              start: DateTime.now().subtract(Duration(days: 31)),
-              end: DateTime.now(),
+              start: DateTime.now(),
+              end: DateTime.now().add(Duration(days: 31)),
             ),
           );
           if (picked != null) {
@@ -206,7 +205,7 @@ Widget rangeDates(
                   ),
                 ),
                 Text(
-                  '    ${_formattedDate(_rangeDates.start)} - ${_formattedDate(_rangeDates.end)}',
+                  '    ${_formattedDate(DateTime.fromMillisecondsSinceEpoch(_rangeDates.start.toInt()))} - ${_formattedDate(DateTime.fromMillisecondsSinceEpoch(_rangeDates.end.toInt()))}',
                   style: TextStyle(
                     fontSize: 16,
                   ),
