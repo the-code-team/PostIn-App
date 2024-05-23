@@ -11,7 +11,15 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   bool _isPopularSelected = false;
   RangeValues _priceRange = RangeValues(0, 10000);
   int _searchRange = 100;
-  RangeValues _rangeDates = RangeValues(0, 2); // Initial values for date range
+
+// Seleccionamos un rango de fechas desde el dia de hoy hasta el mes que viene
+  RangeValues _rangeDates = RangeValues(
+    DateTime.now().millisecondsSinceEpoch.toDouble(),
+    DateTime.utc(
+            DateTime.now().year, DateTime.now().month + 1, DateTime.now().day)
+        .millisecondsSinceEpoch
+        .toDouble(),
+  );
 
   @override
   Widget build(BuildContext context) {
