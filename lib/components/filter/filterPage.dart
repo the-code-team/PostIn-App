@@ -227,6 +227,17 @@ Widget rangeDates(
 
 Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
     Function(RangeValues) onChanged) {
+  String rangPrice;
+  int max = 10000;
+
+  if (_priceRange.start == 0 && _priceRange.end == 0) {
+    rangPrice = 'Free';
+  } else if (_priceRange.start == 0 && _priceRange.end == max) {
+    rangPrice = '0 - No limit';
+  } else {
+    rangPrice = '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}';
+  }
+
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
@@ -238,7 +249,7 @@ Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
         ),
       ),
       Text(
-        '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}',
+        rangPrice,
         style: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.normal,
@@ -254,8 +265,8 @@ Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
         child: RangeSlider(
           values: _priceRange,
           min: 0,
-          max: 10000,
-          divisions: 10000,
+          max: max * 1,
+          divisions: max,
           onChanged: onChanged,
           labels: RangeLabels(
             '\$${_priceRange.start.round()}',
