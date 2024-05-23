@@ -11,6 +11,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
   bool _isPopularSelected = false;
   RangeValues _priceRange = RangeValues(0, 10000);
   int _searchRange = 100;
+  RangeValues _rangeDates = RangeValues(0, 0); // Initial values for date range
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +76,12 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
               });
             }),
             Divider(),
+            rangeDateS(context, _rangeDates, (RangeValues values) {
+              setState(() {
+                _rangeDates = values;
+              });
+            }),
+            Divider(),
             Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -129,6 +136,47 @@ Widget searchRange(
             SizedBox(width: 10),
             Text(
               'View search range: $_searchRange km',
+              style: TextStyle(
+                color: Theme.of(context).primaryColor,
+                fontSize: 20,
+              ),
+            ),
+          ],
+        ),
+      ),
+      SizedBox(height: 10),
+    ],
+  );
+}
+
+Widget rangeDateS(
+  BuildContext context,
+  RangeValues _rangeDates,
+  Function(RangeValues) onDateChanged,
+) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      Text(
+        'Date Range',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      SizedBox(height: 10),
+      GestureDetector(
+        onTap: () async {
+          // Navigate to another screen or perform any action
+          // For example, you can navigate to a date picker screen
+          // and then update the date range based on the selected dates
+        },
+        child: Row(
+          children: [
+            Icon(Icons.date_range, size: 30),
+            SizedBox(width: 10),
+            Text(
+              'Select date range',
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontSize: 20,
