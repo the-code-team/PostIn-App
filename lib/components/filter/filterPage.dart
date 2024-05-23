@@ -178,7 +178,7 @@ Widget rangeDates(
           fontWeight: FontWeight.bold,
         ),
       ),
-      SizedBox(height: 10),
+      SizedBox(height: 5),
       GestureDetector(
         onTap: () async {
           final DateTimeRange? picked = await showDateRangePicker(
@@ -211,7 +211,7 @@ Widget rangeDates(
                   ),
                 ),
                 Text(
-                  '  ${_formattedDate(_rangeDates.start)} - ${_formattedDate(_rangeDates.end)}',
+                  '    ${_formattedDate(_rangeDates.start)} - ${_formattedDate(_rangeDates.end)}',
                   style: TextStyle(
                     fontSize: 16,
                   ),
