@@ -22,7 +22,7 @@ class _LogoutPageState extends State<LogoutPage> {
           children: [
             Card(
               elevation: 5.0,
-              color: Colors.grey[300],
+              color: Colors.white,
               child: Padding(
                 padding: EdgeInsets.all(16.0),
                 child: Column(
@@ -31,7 +31,7 @@ class _LogoutPageState extends State<LogoutPage> {
                       controller: _usernameController,
                       decoration: InputDecoration(
                         labelText: 'Username',
-                        prefixIcon: Icon(Icons.person, color: Colors.purple),
+                        prefixIcon: Icon(Icons.person, color: Colors.black),
                       ),
                     ),
                     SizedBox(height: 20),
@@ -39,7 +39,7 @@ class _LogoutPageState extends State<LogoutPage> {
                       controller: _passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
-                        prefixIcon: Icon(Icons.lock, color: Colors.purple),
+                        prefixIcon: Icon(Icons.lock, color: Colors.black),
                       ),
                       obscureText: true,
                     ),
@@ -55,7 +55,7 @@ class _LogoutPageState extends State<LogoutPage> {
               },
               child: Text(
                 'Iniciar sesión',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.black),
               ),
             ),
           ],
