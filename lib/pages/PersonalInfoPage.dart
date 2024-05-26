@@ -76,4 +76,3 @@ class PersonalInfoPage extends StatelessWidget {
       ),
     );
   }
-}
