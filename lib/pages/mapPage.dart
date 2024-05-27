@@ -107,10 +107,18 @@ void showAddEventDialog(BuildContext context) {
                               showMaxImageWarning(context);
                             }
                           },
-                          icon: Icon(Icons.photo),
+                          icon: Icon(
+                            Icons.photo,
+                            color: Theme.of(context)
+                                .primaryColor, // Color principal de la aplicación
+                          ),
                           label: Text(
                             'Subir Fotos',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .primaryColor, // Color principal de la aplicación
+                            ),
                           ),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(10), // Ajusta el padding
@@ -128,10 +136,18 @@ void showAddEventDialog(BuildContext context) {
                               showMaxImageWarning(context);
                             }
                           },
-                          icon: Icon(Icons.camera_alt),
+                          icon: Icon(
+                            Icons.camera_alt,
+                            color: Theme.of(context)
+                                .primaryColor, // Color principal de la aplicación
+                          ),
                           label: Text(
                             'Tomar Foto',
-                            style: TextStyle(fontSize: 12),
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .primaryColor, // Color principal de la aplicación
+                            ),
                           ),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(10), // Ajusta el padding
@@ -164,13 +180,25 @@ void showAddEventDialog(BuildContext context) {
             ),
             actions: <Widget>[
               TextButton(
-                child: Text('Cancelar'),
+                child: Text(
+                  'Cancelar',
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .primaryColor, // Color principal de la aplicación
+                  ),
+                ),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               ElevatedButton(
-                child: Text('Guardar'),
+                child: Text(
+                  'Guardar',
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .primaryColor, // Color principal de la aplicación
+                  ),
+                ),
                 onPressed: () {
                   // Lógica para guardar el evento
                   String title = _titleController.text;
