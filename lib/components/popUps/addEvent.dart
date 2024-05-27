@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-
 void showAddEventDialog(BuildContext context) {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -14,8 +13,8 @@ void showAddEventDialog(BuildContext context) {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Advertencia'),
-          content: Text('Solo se permiten seleccionar hasta 5 imágenes.'),
+          title: Text('Warning'),
+          content: Text('Only up to 5 images can be selected.'),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -41,25 +40,25 @@ void showAddEventDialog(BuildContext context) {
                 _images.add(File(pickedFile.path));
               });
             } else {
-              print('No se seleccionó ninguna imagen.');
+              print('No image selected.');
             }
           }
 
           return AlertDialog(
-            title: Text('Agregar Evento'),
+            title: Text('Add Event'),
             content: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 10), // Espacio entre TextField y Row
+                  SizedBox(height: 10), // Space between TextField and Row
                   TextField(
                     controller: _titleController,
-                    decoration: InputDecoration(labelText: 'Título'),
+                    decoration: InputDecoration(labelText: 'Title'),
                   ),
                   TextField(
                     controller: _descriptionController,
-                    decoration: InputDecoration(labelText: 'Descripción'),
+                    decoration: InputDecoration(labelText: 'Description'),
                   ),
-                  SizedBox(height: 10), // Espacio entre TextField y Row
+                  SizedBox(height: 10), // Space between TextField and Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -77,18 +76,18 @@ void showAddEventDialog(BuildContext context) {
                           icon: Icon(
                             Icons.photo,
                             color: Theme.of(context)
-                                .primaryColor, // Color principal de la aplicación
+                                .primaryColor, // Primary color of the app
                           ),
                           label: Text(
-                            'Subir Fotos',
+                            'Upload Photos',
                             style: TextStyle(
-                              fontSize: 12,
+                              fontSize: 10,
                               color: Theme.of(context)
-                                  .primaryColor, // Color principal de la aplicación
+                                  .primaryColor, // Primary color of the app
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10), // Ajusta el padding
+                            padding: EdgeInsets.all(10), // Adjust padding
                           ),
                         ),
                       ),
@@ -106,18 +105,18 @@ void showAddEventDialog(BuildContext context) {
                           icon: Icon(
                             Icons.camera_alt,
                             color: Theme.of(context)
-                                .primaryColor, // Color principal de la aplicación
+                                .primaryColor, // Primary color of the app
                           ),
                           label: Text(
-                            'Tomar Foto',
+                            'Take Photo',
                             style: TextStyle(
                               fontSize: 12,
                               color: Theme.of(context)
-                                  .primaryColor, // Color principal de la aplicación
+                                  .primaryColor, // Primary color of the app
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10), // Ajusta el padding
+                            padding: EdgeInsets.all(10), // Adjust padding
                           ),
                         ),
                       ),
@@ -141,17 +140,17 @@ void showAddEventDialog(BuildContext context) {
                             }).toList(),
                           ),
                         )
-                      : Text('No se han seleccionado fotos'),
+                      : Text('No photos selected'),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
                 child: Text(
-                  'Cancelar',
+                  'Cancel',
                   style: TextStyle(
                     color: Theme.of(context)
-                        .primaryColor, // Color principal de la aplicación
+                        .primaryColor, // Primary color of the app
                   ),
                 ),
                 onPressed: () {
@@ -160,18 +159,18 @@ void showAddEventDialog(BuildContext context) {
               ),
               ElevatedButton(
                 child: Text(
-                  'Guardar',
+                  'Save',
                   style: TextStyle(
                     color: Theme.of(context)
-                        .primaryColor, // Color principal de la aplicación
+                        .primaryColor, // Primary color of the app
                   ),
                 ),
                 onPressed: () {
-                  // Lógica para guardar el evento
+                  // Logic to save the event
                   String title = _titleController.text;
                   String description = _descriptionController.text;
-                  print('Título: $title, Descripción: $description');
-                  // Aquí puedes manejar las imágenes (_images) como necesites
+                  print('Title: $title, Description: $description');
+                  // Here you can handle the images (_images) as needed
                   Navigator.of(context).pop();
                 },
               ),
