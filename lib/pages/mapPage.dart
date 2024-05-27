@@ -12,11 +12,6 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  int selectedIndex =
-      0; // Estado que almacena el índice del elemento seleccionado
-  bool isEventListVisible =
-      false; // Estado para controlar la visibilidad de EventListWidget
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,6 +54,8 @@ void showAddEventDialog(BuildContext context) {
               setState(() {
                 _images.add(File(pickedFile.path));
               });
+            } else {
+              print('No se seleccionó ninguna imagen.');
             }
           }
 
@@ -82,17 +79,21 @@ void showAddEventDialog(BuildContext context) {
                   ),
                   SizedBox(height: 10),
                   _images.isNotEmpty
-                      ? Wrap(
-                          spacing: 8.0,
-                          runSpacing: 8.0,
-                          children: _images.map((image) {
-                            return Image.file(
-                              image,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            );
-                          }).toList(),
+                      ? SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: _images.map((image) {
+                              return Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.file(
+                                  image,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                              );
+                            }).toList(),
+                          ),
                         )
                       : Text('No se han seleccionado fotos'),
                 ],
