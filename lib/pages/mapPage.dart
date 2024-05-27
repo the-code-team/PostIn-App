@@ -42,6 +42,26 @@ void showAddEventDialog(BuildContext context) {
   final ImagePicker _picker = ImagePicker();
   List<File> _images = [];
 
+  void showMaxImageWarning(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Advertencia'),
+          content: Text('Solo se permiten seleccionar hasta 5 imágenes.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -73,7 +93,13 @@ void showAddEventDialog(BuildContext context) {
                     decoration: InputDecoration(labelText: 'Descripción'),
                   ),
                   ElevatedButton.icon(
-                    onPressed: _pickImage,
+                    onPressed: () {
+                      if (_images.length < 5) {
+                        _pickImage();
+                      } else {
+                        showMaxImageWarning(context);
+                      }
+                    },
                     icon: Icon(Icons.photo),
                     label: Text('Subir Fotos'),
                   ),
