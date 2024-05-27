@@ -83,6 +83,7 @@ void showAddEventDialog(BuildContext context) {
             content: SingleChildScrollView(
               child: Column(
                 children: [
+                  SizedBox(height: 10), // Espacio entre TextField y Row
                   TextField(
                     controller: _titleController,
                     decoration: InputDecoration(labelText: 'Título'),
@@ -91,30 +92,51 @@ void showAddEventDialog(BuildContext context) {
                     controller: _descriptionController,
                     decoration: InputDecoration(labelText: 'Descripción'),
                   ),
+                  SizedBox(height: 10), // Espacio entre TextField y Row
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          if (_images.length < 5) {
-                            _pickImage(ImageSource.gallery);
-                          } else {
-                            showMaxImageWarning(context);
-                          }
-                        },
-                        icon: Icon(Icons.photo),
-                        label: Text('Subir Fotos'),
+                      SizedBox(
+                        width: 120,
+                        height: 40,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            if (_images.length < 5) {
+                              _pickImage(ImageSource.gallery);
+                            } else {
+                              showMaxImageWarning(context);
+                            }
+                          },
+                          icon: Icon(Icons.photo),
+                          label: Text(
+                            'Subir Fotos',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(10), // Ajusta el padding
+                          ),
+                        ),
                       ),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          if (_images.length < 5) {
-                            _pickImage(ImageSource.camera);
-                          } else {
-                            showMaxImageWarning(context);
-                          }
-                        },
-                        icon: Icon(Icons.camera_alt),
-                        label: Text('Tomar Foto'),
+                      SizedBox(
+                        width: 120,
+                        height: 40,
+                        child: ElevatedButton.icon(
+                          onPressed: () {
+                            if (_images.length < 5) {
+                              _pickImage(ImageSource.camera);
+                            } else {
+                              showMaxImageWarning(context);
+                            }
+                          },
+                          icon: Icon(Icons.camera_alt),
+                          label: Text(
+                            'Tomar Foto',
+                            style: TextStyle(fontSize: 12),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(10), // Ajusta el padding
+                          ),
+                        ),
                       ),
                     ],
                   ),
