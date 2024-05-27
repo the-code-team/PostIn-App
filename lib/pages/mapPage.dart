@@ -23,12 +23,16 @@ class _MapPageState extends State<MapPage> {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () async {},
-        backgroundColor: Theme.of(context).primaryColor,
-        shape: const CircleBorder(),
-        child: const Icon(Icons.add, color: Colors.white),
-      ),
+      floatingActionButton: addEventFloatingActionButton(context)
     );
   }
+}
+
+Widget addEventFloatingActionButton(BuildContext context) {
+  return FloatingActionButton(
+    onPressed: () async {},
+    backgroundColor: Theme.of(context).primaryColor,
+    shape: const CircleBorder(),
+    child: const Icon(Icons.add, color: Colors.white),
+  );
 }
