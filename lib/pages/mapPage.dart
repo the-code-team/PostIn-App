@@ -67,9 +67,8 @@ void showAddEventDialog(BuildContext context) {
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          Future<void> _pickImage() async {
-            final pickedFile =
-                await _picker.pickImage(source: ImageSource.gallery);
+          Future<void> _pickImage(ImageSource source) async {
+            final pickedFile = await _picker.pickImage(source: source);
             if (pickedFile != null) {
               setState(() {
                 _images.add(File(pickedFile.path));
@@ -92,16 +91,32 @@ void showAddEventDialog(BuildContext context) {
                     controller: _descriptionController,
                     decoration: InputDecoration(labelText: 'Descripción'),
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      if (_images.length < 5) {
-                        _pickImage();
-                      } else {
-                        showMaxImageWarning(context);
-                      }
-                    },
-                    icon: Icon(Icons.photo),
-                    label: Text('Subir Fotos'),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (_images.length < 5) {
+                            _pickImage(ImageSource.gallery);
+                          } else {
+                            showMaxImageWarning(context);
+                          }
+                        },
+                        icon: Icon(Icons.photo),
+                        label: Text('Subir Fotos'),
+                      ),
+                      ElevatedButton.icon(
+                        onPressed: () {
+                          if (_images.length < 5) {
+                            _pickImage(ImageSource.camera);
+                          } else {
+                            showMaxImageWarning(context);
+                          }
+                        },
+                        icon: Icon(Icons.camera_alt),
+                        label: Text('Tomar Foto'),
+                      ),
+                    ],
                   ),
                   SizedBox(height: 10),
                   _images.isNotEmpty
