@@ -70,6 +70,11 @@ class PersonalInfoPage extends StatelessWidget {
                   );
                 }).toList(),
               ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {},
+                child: Text('Editar'),
+              ),
             ],
           ),
         ),
