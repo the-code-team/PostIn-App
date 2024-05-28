@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'ConfigurationPage.dart';
 import 'PersonalInfoPage.dart';
 import 'BlockedUsersPage.dart';
-import 'InterestsPage.dart';
 import 'SecuritySettingsPage.dart';
 import 'LogoutPage.dart';
 
