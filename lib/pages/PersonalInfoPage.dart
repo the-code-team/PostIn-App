@@ -38,6 +38,10 @@ class PersonalInfoPage extends StatelessWidget {
                   ),
                   SizedBox(width: 20),
                   ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      foregroundColor: Colors.black,
+                    ),
                     onPressed: () {},
                     child: Text('Cambiar imagen'),
                   ),
@@ -72,6 +76,10 @@ class PersonalInfoPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.white,
+                  foregroundColor: Colors.black,
+                ),
                 onPressed: () {},
                 child: Text('Editar'),
               ),
