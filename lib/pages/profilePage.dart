@@ -107,7 +107,6 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(height: 5),
                     buildListItem(
                         Icons.person, 'Informacion Personal', context),
-                    buildListItem(Icons.interests, 'Intereses', context),
                     buildListItem(Icons.description, 'Tu biografía', context),
                     buildListItem(Icons.security,
                         'Configuraciones de seguridad', context),
@@ -146,15 +145,6 @@ class ProfilePage extends StatelessWidget {
             image: userImage,
             userName: userName,
             age: userAge,
-            interests: userInterests,
-          ),
-        ),
-      );
-    } else if (title == 'Intereses') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => InterestsPage(
             interests: userInterests,
           ),
         ),
