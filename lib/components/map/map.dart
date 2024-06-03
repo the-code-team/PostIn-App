@@ -3,6 +3,13 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:postin_app/components/titles/titleBar.dart';
 
+class LocationEvent {
+  final LatLng coordinates;
+  final String identifier;
+
+  LocationEvent({required this.coordinates, required this.identifier});
+}
+
 class MapComponent extends StatelessWidget {
   const MapComponent({Key? key});
 
@@ -11,36 +18,32 @@ class MapComponent extends StatelessWidget {
         userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
       );
 
-  List<Marker> getMarkers(List<LatLng> coordinates, List<String> identifiers) {
-    return List.generate(coordinates.length, (index) {
+  List<Marker> getMarkers(List<LocationEvent> locationEvents) {
+    return locationEvents.map((event) {
       return Marker(
         width: 80.0,
         height: 80.0,
-        point: coordinates[index],
+        point: event.coordinates,
         child: Container(
           child: Column(
             children: [
               Icon(Icons.location_on, color: Colors.red, size: 40),
-              Text(identifiers[index], style: TextStyle(color: Colors.black)),
+              Text(event.identifier, style: TextStyle(color: Colors.black)),
             ],
           ),
         ),
       );
-    });
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    // Ejemplo de coordenadas e identificadores
-    final coordinates = [
-      LatLng(38.699575, -0.474774),
-      LatLng(38.699585, -0.472564),
-      // Añade más coordenadas si es necesario
-    ];
-    final identifiers = [
-      'ID1',
-      'ID2',
-      // Añade más identificadores si es necesario
+    // Ejemplo de lista de eventos de ubicación
+    final locationEvents = [
+      LocationEvent(
+          coordinates: LatLng(38.699575, -0.474774), identifier: 'ID1'),
+      LocationEvent(
+          coordinates: LatLng(38.699575, -0.471774), identifier: 'ID2'),
     ];
 
     return FlutterMap(
@@ -52,7 +55,7 @@ class MapComponent extends StatelessWidget {
       ),
       children: [
         openStreetMapTileLayer,
-        MarkerLayer(markers: getMarkers(coordinates, identifiers)),
+        MarkerLayer(markers: getMarkers(locationEvents)),
         buildTitleBar(context),
       ],
     );
