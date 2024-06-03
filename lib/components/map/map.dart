@@ -11,18 +11,32 @@ class MapComponent extends StatelessWidget {
         userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
       );
 
+  List<Marker> getMarkers() {
+    return [
+      Marker(
+        width: 80.0,
+        height: 80.0,
+        point: LatLng(38.699575, -0.474774),
+        child: Container(
+          child: Icon(Icons.location_on, color: Colors.red, size: 40),
+        ),
+      ),
+      // Añade más marcadores aquí si es necesario
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return FlutterMap(
       options: const MapOptions(
-        initialCenter: LatLng(38.699575, -0.474774),
-        initialZoom: 11,
-        interactionOptions: InteractionOptions(
-          flags: ~InteractiveFlag.doubleTapDragZoom,
-        ),
+        center: LatLng(38.699575, -0.474774),
+        zoom: 11,
+        interactiveFlags:
+            InteractiveFlag.all & ~InteractiveFlag.doubleTapDragZoom,
       ),
       children: [
         openStreetMapTileLayer,
+        MarkerLayer(markers: getMarkers()),
         buildTitleBar(context),
       ],
     );
