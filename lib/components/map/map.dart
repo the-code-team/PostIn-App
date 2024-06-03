@@ -3,6 +3,8 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:postin_app/components/titles/titleBar.dart';
 
+import 'package:postin_app/pages/eventDetailsPage.dart';
+
 class LocationEvent {
   final LatLng coordinates;
   final String identifier;
@@ -18,18 +20,30 @@ class MapComponent extends StatelessWidget {
         userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
       );
 
-  List<Marker> getMarkers(List<LocationEvent> locationEvents) {
+  List<Marker> getMarkers(
+      BuildContext context, List<LocationEvent> locationEvents) {
     return locationEvents.map((event) {
       return Marker(
         width: 80.0,
         height: 80.0,
         point: event.coordinates,
-        child: Container(
-          child: Column(
-            children: [
-              Icon(Icons.location_on, color: Colors.red, size: 40),
-              Text(event.identifier, style: TextStyle(color: Colors.black)),
-            ],
+        child: GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) =>
+                    eventDetailsPage(eventName: event.identifier),
+              ),
+            );
+          },
+          child: Container(
+            child: Column(
+              children: [
+                Icon(Icons.location_on, color: Colors.red, size: 40),
+                Text(event.identifier, style: TextStyle(color: Colors.black)),
+              ],
+            ),
           ),
         ),
       );
@@ -55,7 +69,7 @@ class MapComponent extends StatelessWidget {
       ),
       children: [
         openStreetMapTileLayer,
-        MarkerLayer(markers: getMarkers(locationEvents)),
+        MarkerLayer(markers: getMarkers(context, locationEvents)),
         buildTitleBar(context),
       ],
     );
