@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 void showAddEventDialog(BuildContext context) {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -13,8 +17,13 @@ void showAddEventDialog(BuildContext context) {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
+<<<<<<< Updated upstream
           title: Text('Warning'),
           content: Text('Only up to 5 images can be selected.'),
+=======
+          title: Text('Advertencia'),
+          content: Text('Solo se permiten seleccionar hasta 5 imágenes.'),
+>>>>>>> Stashed changes
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -40,11 +49,16 @@ void showAddEventDialog(BuildContext context) {
                 _images.add(File(pickedFile.path));
               });
             } else {
+<<<<<<< Updated upstream
               print('No image selected.');
+=======
+              print('No se seleccionó ninguna imagen.');
+>>>>>>> Stashed changes
             }
           }
 
           return AlertDialog(
+<<<<<<< Updated upstream
             title: Text('Add Event'),
             content: SingleChildScrollView(
               child: Column(
@@ -59,6 +73,22 @@ void showAddEventDialog(BuildContext context) {
                     decoration: InputDecoration(labelText: 'Description'),
                   ),
                   SizedBox(height: 10), // Space between TextField and Row
+=======
+            title: Text('Agregar Evento'),
+            content: SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(height: 10), // Espacio entre TextField y Row
+                  TextField(
+                    controller: _titleController,
+                    decoration: InputDecoration(labelText: 'Título'),
+                  ),
+                  TextField(
+                    controller: _descriptionController,
+                    decoration: InputDecoration(labelText: 'Descripción'),
+                  ),
+                  SizedBox(height: 10), // Espacio entre TextField y Row
+>>>>>>> Stashed changes
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -76,6 +106,7 @@ void showAddEventDialog(BuildContext context) {
                           icon: Icon(
                             Icons.photo,
                             color: Theme.of(context)
+<<<<<<< Updated upstream
                                 .primaryColor, // Primary color of the app
                           ),
                           label: Text(
@@ -88,6 +119,20 @@ void showAddEventDialog(BuildContext context) {
                           ),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(10), // Adjust padding
+=======
+                                .primaryColor, // Color principal de la aplicación
+                          ),
+                          label: Text(
+                            'Subir Fotos',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .primaryColor, // Color principal de la aplicación
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(10), // Ajusta el padding
+>>>>>>> Stashed changes
                           ),
                         ),
                       ),
@@ -105,6 +150,7 @@ void showAddEventDialog(BuildContext context) {
                           icon: Icon(
                             Icons.camera_alt,
                             color: Theme.of(context)
+<<<<<<< Updated upstream
                                 .primaryColor, // Primary color of the app
                           ),
                           label: Text(
@@ -117,6 +163,20 @@ void showAddEventDialog(BuildContext context) {
                           ),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(10), // Adjust padding
+=======
+                                .primaryColor, // Color principal de la aplicación
+                          ),
+                          label: Text(
+                            'Tomar Foto',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Theme.of(context)
+                                  .primaryColor, // Color principal de la aplicación
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(10), // Ajusta el padding
+>>>>>>> Stashed changes
                           ),
                         ),
                       ),
@@ -140,17 +200,28 @@ void showAddEventDialog(BuildContext context) {
                             }).toList(),
                           ),
                         )
+<<<<<<< Updated upstream
                       : Text('No photos selected'),
+=======
+                      : Text('No se han seleccionado fotos'),
+>>>>>>> Stashed changes
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
                 child: Text(
+<<<<<<< Updated upstream
                   'Cancel',
                   style: TextStyle(
                     color: Theme.of(context)
                         .primaryColor, // Primary color of the app
+=======
+                  'Cancelar',
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .primaryColor, // Color principal de la aplicación
+>>>>>>> Stashed changes
                   ),
                 ),
                 onPressed: () {
@@ -159,6 +230,7 @@ void showAddEventDialog(BuildContext context) {
               ),
               ElevatedButton(
                 child: Text(
+<<<<<<< Updated upstream
                   'Save',
                   style: TextStyle(
                     color: Theme.of(context)
@@ -171,6 +243,20 @@ void showAddEventDialog(BuildContext context) {
                   String description = _descriptionController.text;
                   print('Title: $title, Description: $description');
                   // Here you can handle the images (_images) as needed
+=======
+                  'Guardar',
+                  style: TextStyle(
+                    color: Theme.of(context)
+                        .primaryColor, // Color principal de la aplicación
+                  ),
+                ),
+                onPressed: () {
+                  // Lógica para guardar el evento
+                  String title = _titleController.text;
+                  String description = _descriptionController.text;
+                  print('Título: $title, Descripción: $description');
+                  // Aquí puedes manejar las imágenes (_images) como necesites
+>>>>>>> Stashed changes
                   Navigator.of(context).pop();
                 },
               ),
