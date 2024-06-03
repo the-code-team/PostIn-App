@@ -40,8 +40,7 @@ class MapComponent extends StatelessWidget {
           child: Container(
             child: Column(
               children: [
-                Icon(Icons.location_on, color: Colors.red, size: 40),
-                Text(event.identifier, style: TextStyle(color: Colors.black)),
+                Icon(Icons.location_on, color: Colors.black, size: 40),
               ],
             ),
           ),
