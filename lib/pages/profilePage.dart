@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 import 'ConfigurationPage.dart';
+import 'PersonalInfoPage.dart';
+import 'BlockedUsersPage.dart';
+import 'InterestsPage.dart';
+import 'SecuritySettingsPage.dart';
+import 'LogoutPage.dart';
+
+String userName = 'PATRICIA';
+int userAge = 30;
+String userImage = 'assets/avatar.png';
+List<String> userInterests = [
+  'Interés 1',
+  'Interés 2',
+  'Interés 3',
+  'Interés 4'
+];
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -38,14 +53,14 @@ class ProfilePage extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 40,
-                            backgroundImage: AssetImage('assets/avatar.png'),
+                            backgroundImage: AssetImage(userImage),
                           ),
                           SizedBox(width: 20),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'PATRICIA, 30',
+                                '$userName, $userAge',
                                 style: TextStyle(
                                   fontSize: 20,
                                   fontWeight: FontWeight.bold,
@@ -66,32 +81,14 @@ class ProfilePage extends StatelessWidget {
                       SizedBox(height: 20),
                       Wrap(
                         spacing: 10,
-                        children: [
-                          Chip(
-                            label: Text('Interés 1'),
+                        children: userInterests.map((interest) {
+                          return Chip(
+                            label: Text(interest),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(20),
                             ),
-                          ),
-                          Chip(
-                            label: Text('Interés 2'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          Chip(
-                            label: Text('Interés 3'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          Chip(
-                            label: Text('Interés 4'),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                        ],
+                          );
+                        }).toList(),
                       )
                     ],
                   ),
@@ -116,8 +113,7 @@ class ProfilePage extends StatelessWidget {
                     buildListItem(
                         Icons.person, 'Informacion Personal', context),
                     buildListItem(Icons.interests, 'Intereses', context),
-                    buildListItem(Icons.insert_page_break_outlined,
-                        'Tu biografia', context),
+                    buildListItem(Icons.description, 'Tu biografía', context),
                     buildListItem(Icons.security,
                         'Configuraciones de seguridad', context),
                     buildListItem(Icons.app_blocking_rounded,
@@ -148,11 +144,55 @@ class ProfilePage extends StatelessWidget {
   }
 
   void navigateToPage(BuildContext context, String title) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ConfigurationPage(title: title),
-      ),
-    );
+    if (title == 'Informacion Personal') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PersonalInfoPage(
+            image: userImage,
+            userName: userName,
+            age: userAge,
+            interests: userInterests,
+          ),
+        ),
+      );
+    } else if (title == 'Intereses') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => InterestsPage(
+            interests: userInterests,
+          ),
+        ),
+      );
+    } else if (title == 'Usuarios bloqueados') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => BlockedUsersPage(),
+        ),
+      );
+    } else if (title == 'Configuraciones de seguridad') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SecuritySettingsPage(),
+        ),
+      );
+    } else if (title == 'Cerrar sesion') {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LogoutPage(),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ConfigurationPage(title: title),
+        ),
+      );
+    }
   }
 }

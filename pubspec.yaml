@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   latlong2: ^0.9.1
   flutter_map: ^6.1.0
+  appinio_swiper: ^2.1.1
+  image_picker: ^1.1.1
 
 dev_dependencies:
   flutter_test:
@@ -55,8 +57,7 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets: 
-    - assets/avatar.png
-    - assets/next_event_image.jpg
+    - assets/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
