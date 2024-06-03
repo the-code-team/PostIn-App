@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 
-Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
-    Function(RangeValues) onChanged) {
+Widget priceRangeSlider(
+    BuildContext context,
+    bool _isFreeRangeSelected,
+    RangeValues _priceRange,
+    Function(RangeValues) onChanged,
+    Function(bool) onSwitchChanged) {
   String rangPrice;
   int max = 10000;
 
   if (_priceRange.start == 0 && _priceRange.end == 0) {
-    rangPrice = 'Free';
+    rangPrice = 'Gratis';
   } else if (_priceRange.start == 0 && _priceRange.end == max) {
-    rangPrice = '0 - No limit';
+    rangPrice = '0 - Sin límite';
   } else {
     rangPrice = '\$${_priceRange.start.round()} - \$${_priceRange.end.round()}';
   }
@@ -16,12 +20,25 @@ Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: [
-      Text(
-        'Price Range:',
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
+      Row(
+        children: [
+          Text(
+            'Rango de precios:',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Switch(
+            value: _isFreeRangeSelected,
+            onChanged: (bool value) {
+              onSwitchChanged(value);
+              if (value) {
+                onChanged(RangeValues(0, 0));
+              }
+            },
+          ),
+        ],
       ),
       Text(
         rangPrice,
@@ -40,7 +57,7 @@ Widget priceRangeSlider(BuildContext context, RangeValues _priceRange,
         child: RangeSlider(
           values: _priceRange,
           min: 0,
-          max: max * 1,
+          max: max * 1.0,
           divisions: max,
           onChanged: onChanged,
           labels: RangeLabels(
