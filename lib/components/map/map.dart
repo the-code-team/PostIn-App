@@ -11,22 +11,38 @@ class MapComponent extends StatelessWidget {
         userAgentPackageName: 'dev.fleaflet.flutter_map.exemple',
       );
 
-  List<Marker> getMarkers() {
-    return [
-      Marker(
+  List<Marker> getMarkers(List<LatLng> coordinates, List<String> identifiers) {
+    return List.generate(coordinates.length, (index) {
+      return Marker(
         width: 80.0,
         height: 80.0,
-        point: LatLng(38.699575, -0.474774),
+        point: coordinates[index],
         child: Container(
-          child: Icon(Icons.location_on, color: Colors.red, size: 40),
+          child: Column(
+            children: [
+              Icon(Icons.location_on, color: Colors.red, size: 40),
+              Text(identifiers[index], style: TextStyle(color: Colors.black)),
+            ],
+          ),
         ),
-      ),
-      // Añade más marcadores aquí si es necesario
-    ];
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    // Ejemplo de coordenadas e identificadores
+    final coordinates = [
+      LatLng(38.699575, -0.474774),
+      LatLng(38.699585, -0.472564),
+      // Añade más coordenadas si es necesario
+    ];
+    final identifiers = [
+      'ID1',
+      'ID2',
+      // Añade más identificadores si es necesario
+    ];
+
     return FlutterMap(
       options: const MapOptions(
         center: LatLng(38.699575, -0.474774),
@@ -36,7 +52,7 @@ class MapComponent extends StatelessWidget {
       ),
       children: [
         openStreetMapTileLayer,
-        MarkerLayer(markers: getMarkers()),
+        MarkerLayer(markers: getMarkers(coordinates, identifiers)),
         buildTitleBar(context),
       ],
     );
