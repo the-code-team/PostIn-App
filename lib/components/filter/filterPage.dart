@@ -35,6 +35,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             onPressed: () {
               // Reset all parameters
               setState(() {
+                _freePrice = false;
                 _isPopularSelected = false;
                 _priceRange = RangeValues(0, 10000);
                 _searchRange = 100;
