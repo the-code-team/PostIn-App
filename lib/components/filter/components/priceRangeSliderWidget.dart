@@ -29,7 +29,7 @@ Widget priceRangeSlider(
               fontWeight: FontWeight.bold,
             ),
           ),
-          Spacer(), // Agregamos un Spacer para ocupar el espacio restante
+          Spacer(),
           Text(
             "Free",
             style: TextStyle(
@@ -68,7 +68,13 @@ Widget priceRangeSlider(
           min: 0,
           max: max * 1.0,
           divisions: max,
-          onChanged: onChanged,
+          onChanged: (RangeValues values) {
+            onChanged(values);
+            // Desseleccionar el Switch cuando se toque el Slider
+            if (_isFreeRangeSelected) {
+              onSwitchChanged(false);
+            }
+          },
           labels: RangeLabels(
             '\$${_priceRange.start.round()}',
             '\$${_priceRange.end.round()}',
