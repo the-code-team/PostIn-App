@@ -29,6 +29,14 @@ Widget priceRangeSlider(
               fontWeight: FontWeight.bold,
             ),
           ),
+          Spacer(), // Agregamos un Spacer para ocupar el espacio restante
+          Text(
+            "Free",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
           Switch(
             value: _isFreeRangeSelected,
             onChanged: (bool value) {
@@ -40,6 +48,7 @@ Widget priceRangeSlider(
           ),
         ],
       ),
+      SizedBox(height: 10),
       Text(
         rangPrice,
         style: TextStyle(
