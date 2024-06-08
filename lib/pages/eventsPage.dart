@@ -116,7 +116,7 @@ class EventsPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    ' ${event.host}',
+                    'Host: ${event.host}',
                     style: TextStyle(fontSize: 16),
                   ),
                   Text(
@@ -167,7 +167,7 @@ class EventsPage extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${event.host}',
+                    'Host: ${event.host}',
                     style: TextStyle(fontSize: 14),
                   ),
                   Text(
