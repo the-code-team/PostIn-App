@@ -34,7 +34,7 @@ class EventDetailsPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Host: ${event.host}',
+                '${event.host}',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),

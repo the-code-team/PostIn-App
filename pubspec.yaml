@@ -63,6 +63,11 @@ flutter:
   assets: 
     - assets/
     - assets/location_events.json
+    - assets/avatar.png
+    - assets/next_event_image.jpg
+    - assets/upv.jpeg
+    - assets/plaza_dins.jpg
+    - assets/fila.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
