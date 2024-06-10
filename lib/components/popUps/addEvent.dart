@@ -10,6 +10,20 @@ void showAddEventDialog(BuildContext context) {
   final ImagePicker _picker = ImagePicker();
   List<File> _images = [];
   LatLng? _selectedLocation;
+  bool _isSaveButtonEnabled = false;
+  String _titleError = '';
+  String _descriptionError = '';
+  String _imagesError = '';
+  String _locationError = '';
+
+  void updateSaveButtonState(StateSetter setState) {
+    setState(() {
+      _isSaveButtonEnabled = _titleController.text.isNotEmpty &&
+          _descriptionController.text.isNotEmpty &&
+          _images.isNotEmpty &&
+          _selectedLocation != null;
+    });
+  }
 
   void showMaxImageWarning(BuildContext context) {
     showDialog(
@@ -36,6 +50,7 @@ void showAddEventDialog(BuildContext context) {
     if (pickedFile != null) {
       setState(() {
         _images.add(File(pickedFile.path));
+        updateSaveButtonState(setState);
       });
     } else {
       print('No image selected.');
@@ -49,7 +64,26 @@ void showAddEventDialog(BuildContext context) {
     if (location != null) {
       setState(() {
         _selectedLocation = location;
+        updateSaveButtonState(setState);
       });
+    }
+  }
+
+  void _validateAndSave(StateSetter setState) {
+    setState(() {
+      _titleError = _titleController.text.isEmpty ? 'Title is required' : '';
+      _descriptionError =
+          _descriptionController.text.isEmpty ? 'Description is required' : '';
+      _imagesError = _images.isEmpty ? 'At least one image is required' : '';
+      _locationError = _selectedLocation == null ? 'Location is required' : '';
+    });
+
+    if (_isSaveButtonEnabled) {
+      String title = _titleController.text;
+      String description = _descriptionController.text;
+      print(
+          'Title: $title, Description: $description, Location: $_selectedLocation');
+      Navigator.of(context).pop();
     }
   }
 
@@ -66,11 +100,20 @@ void showAddEventDialog(BuildContext context) {
                   SizedBox(height: 10),
                   TextField(
                     controller: _titleController,
-                    decoration: InputDecoration(labelText: 'Title'),
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                      errorText: _titleError.isEmpty ? null : _titleError,
+                    ),
+                    onChanged: (text) => updateSaveButtonState(setState),
                   ),
                   TextField(
                     controller: _descriptionController,
-                    decoration: InputDecoration(labelText: 'Description'),
+                    decoration: InputDecoration(
+                      labelText: 'Description',
+                      errorText:
+                          _descriptionError.isEmpty ? null : _descriptionError,
+                    ),
+                    onChanged: (text) => updateSaveButtonState(setState),
                   ),
                   SizedBox(height: 10),
                   Row(
@@ -150,7 +193,14 @@ void showAddEventDialog(BuildContext context) {
                             }).toList(),
                           ),
                         )
-                      : Text('No photos selected'),
+                      : Text(
+                          'No photos selected',
+                          style: TextStyle(
+                            color: _imagesError.isEmpty
+                                ? Colors.black
+                                : Colors.red,
+                          ),
+                        ),
                   SizedBox(
                     width: 120,
                     height: 40,
@@ -175,10 +225,14 @@ void showAddEventDialog(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 10),
-                  _selectedLocation != null
-                      ? Text(
-                          'Location: \n${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}')
-                      : Text('No location selected'),
+                  Text(
+                    _selectedLocation != null
+                        ? 'Location: \n${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}'
+                        : 'No location selected',
+                    style: TextStyle(
+                      color: _locationError.isEmpty ? Colors.black : Colors.red,
+                    ),
+                  ),
                   SizedBox(height: 10),
                 ],
               ),
@@ -203,12 +257,7 @@ void showAddEventDialog(BuildContext context) {
                   ),
                 ),
                 onPressed: () {
-                  // Logic to save the event
-                  String title = _titleController.text;
-                  String description = _descriptionController.text;
-                  print(
-                      'Title: $title, Description: $description, Location: $_selectedLocation');
-                  Navigator.of(context).pop();
+                  _validateAndSave(setState);
                 },
               ),
             ],
