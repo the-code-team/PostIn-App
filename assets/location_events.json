@@ -1,0 +1,15 @@
+[
+    {
+      "coordinates": {"latitude": 38.699575, "longitude": -0.474774},
+      "identifier": "ID1"
+    },
+    {
+      "coordinates": {"latitude": 38.699575, "longitude": -0.471774},
+      "identifier": "ID2"
+    },
+    {
+      "coordinates": {"latitude": 38.699575, "longitude": -0.491774},
+      "identifier": "ID3"
+    }
+  ]
+  
