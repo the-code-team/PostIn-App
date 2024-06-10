@@ -11,6 +11,7 @@ class EventsFilterPage extends StatefulWidget {
 
 class _EventsFilterPageState extends State<EventsFilterPage> {
   // Variables to store filter states
+  bool _freePrice = false;
   bool _isPopularSelected = false;
   RangeValues _priceRange = RangeValues(0, 10000);
   int _searchRange = 100;
@@ -34,6 +35,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
             onPressed: () {
               // Reset all parameters
               setState(() {
+                _freePrice = false;
                 _isPopularSelected = false;
                 _priceRange = RangeValues(0, 10000);
                 _searchRange = 100;
@@ -62,10 +64,16 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
           children: [
             priceRangeSlider(
               context,
+              _freePrice,
               _priceRange,
               (RangeValues values) {
                 setState(() {
                   _priceRange = values;
+                });
+              },
+              (bool value) {
+                setState(() {
+                  _freePrice = value;
                 });
               },
             ),
