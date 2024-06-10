@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:postin_app/models/message.dart';
 import 'package:postin_app/pages/chatPage.dart';
 
 class GroupsPage extends StatefulWidget {

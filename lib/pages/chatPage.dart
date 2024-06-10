@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/foundation.dart' as foundation;
-
-class Message {
-  final String sender;
-  final String text;
-  final DateTime time;
-
-  const Message({required this.sender, required this.text, required this.time});
-}
+import './../models/message.dart';
+import './../components/message_search/MessageSearch.dart';
 
 class ChatPage extends StatefulWidget {
   final String groupName;
   final List<Message> messages;
 
-  const ChatPage({required this.groupName, required this.messages, Key? key})
-      : super(key: key);
+  const ChatPage({
+    required this.groupName,
+    required this.messages,
+    Key? key,
+  }) : super(key: key);
 
   @override
   _ChatPageState createState() => _ChatPageState();
@@ -34,6 +31,29 @@ class _ChatPageState extends State<ChatPage> {
     _messages = widget.messages;
   }
 
+  void _sendMessage(BuildContext context) {
+    if (_messageController.text.isNotEmpty) {
+      final newMessage = Message(
+        sender: 'Me',
+        text: _messageController.text,
+        time: DateTime.now(),
+      );
+
+      setState(() {
+        _messages.insert(0, newMessage);
+        _messageController.clear();
+        _messageFocusNode.requestFocus();
+        _isEmojiVisible = false;
+      });
+
+      _scrollController.animateTo(
+        0.0,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
   void _toggleEmojiPicker() {
     setState(() {
       _isEmojiVisible = !_isEmojiVisible;
@@ -46,11 +66,38 @@ class _ChatPageState extends State<ChatPage> {
     });
   }
 
+  void _scrollToMessage(Message message) {
+    final index = _messages.indexOf(message);
+    if (index != -1) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        _scrollController.animateTo(
+          index * 60.0,
+          duration: Duration(milliseconds: 300),
+          curve: Curves.easeInOut,
+        );
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.groupName),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: MessageSearchDelegate(
+                  messages: _messages,
+                  onSelectMessage: _scrollToMessage,
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -142,7 +189,7 @@ class _ChatPageState extends State<ChatPage> {
                 controller: _messageController,
                 focusNode: _messageFocusNode,
                 decoration: const InputDecoration(
-                  hintText: 'Escribe un mensaje...',
+                  hintText: 'Enviar mensaje...',
                   border: InputBorder.none,
                 ),
                 textCapitalization: TextCapitalization.sentences,
@@ -157,8 +204,8 @@ class _ChatPageState extends State<ChatPage> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.send, color: Colors.grey),
-            onPressed: null, // Deshabilitar el botón de enviar
+            icon: const Icon(Icons.send),
+            onPressed: () => _sendMessage(context),
           ),
         ],
       ),
