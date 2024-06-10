@@ -31,21 +31,25 @@ void showAddEventDialog(BuildContext context) {
     );
   }
 
-  Future<void> _pickImage(ImageSource source) async {
+  Future<void> _pickImage(ImageSource source, StateSetter setState) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
-      _images.add(File(pickedFile.path));
+      setState(() {
+        _images.add(File(pickedFile.path));
+      });
     } else {
       print('No image selected.');
     }
   }
 
-  void _showLocationPicker(BuildContext context) async {
+  void _showLocationPicker(BuildContext context, StateSetter setState) async {
     LatLng? location = await Navigator.of(context).push(MaterialPageRoute(
       builder: (context) => LocationPickerPage(),
     ));
     if (location != null) {
-      _selectedLocation = location;
+      setState(() {
+        _selectedLocation = location;
+      });
     }
   }
 
@@ -78,9 +82,7 @@ void showAddEventDialog(BuildContext context) {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_images.length < 5) {
-                              setState(() {
-                                _pickImage(ImageSource.gallery);
-                              });
+                              _pickImage(ImageSource.gallery, setState);
                             } else {
                               showMaxImageWarning(context);
                             }
@@ -107,9 +109,7 @@ void showAddEventDialog(BuildContext context) {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_images.length < 5) {
-                              setState(() {
-                                _pickImage(ImageSource.camera);
-                              });
+                              _pickImage(ImageSource.camera, setState);
                             } else {
                               showMaxImageWarning(context);
                             }
@@ -156,7 +156,7 @@ void showAddEventDialog(BuildContext context) {
                     height: 40,
                     child: ElevatedButton.icon(
                       onPressed: () {
-                        _showLocationPicker(context);
+                        _showLocationPicker(context, setState);
                       },
                       icon: Icon(
                         Icons.map,
