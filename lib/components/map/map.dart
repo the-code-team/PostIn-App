@@ -3,7 +3,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:postin_app/components/titles/titleBar.dart';
 
-import 'package:postin_app/pages/eventDetailsPage.dart';
+import 'package:postin_app/pages/eventDetailsPageAddEvent.dart';
 
 class LocationEvent {
   final LatLng coordinates;
@@ -33,7 +33,7 @@ class MapComponent extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) =>
-                    eventDetailsPage(eventName: event.identifier),
+                    EventDetailsPageAddEvent(eventName: event.identifier),
               ),
             );
           },
