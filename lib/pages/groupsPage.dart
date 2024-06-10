@@ -10,14 +10,14 @@ class _GroupsPageState extends State<GroupsPage> {
   List<Map<String, dynamic>> groups = [
     {
       'name': 'Group 1',
-      'lastMessage': 'Joui: ¡Hello!',
-      'time': '25 of april, 22:04',
+      'lastMessage': 'Joui: Hello!',
+      'time': '25 of April, 22:04',
       'isPinned': false,
     },
     {
       'name': 'Group 2',
-      'lastMessage': 'Marcos: ¿Do you want go to the café?',
-      'time': '24 of april, 15:32',
+      'lastMessage': 'Joui: Hello!',
+      'time': '24 of April, 15:32',
       'isPinned': false,
     },
     // Añade más grupos aquí
@@ -60,7 +60,16 @@ class _GroupsPageState extends State<GroupsPage> {
                 context,
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      ChatPage(groupName: group['name']),
+                      ChatPage(
+                    groupName: group['name'],
+                    messages: [
+                      Message(
+                        sender: 'Joui',
+                        text: 'Hello!',
+                        time: DateTime.now(),
+                      ),
+                    ],
+                  ),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     return SlideTransition(
