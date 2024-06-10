@@ -228,8 +228,8 @@ class LocationPickerPage extends StatelessWidget {
       ),
       body: FlutterMap(
         options: MapOptions(
-          center: LatLng(51.5, -0.09),
-          zoom: 13.0,
+          center: LatLng(38.699575, -0.474774),
+          zoom: 11.0,
           onTap: (tapPosition, point) {
             Navigator.of(context).pop(point);
           },
