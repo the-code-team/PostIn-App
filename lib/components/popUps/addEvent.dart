@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 void showAddEventDialog(BuildContext context) {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   List<File> _images = [];
+  LatLng? _selectedLocation;
 
   void showMaxImageWarning(BuildContext context) {
     showDialog(
@@ -28,28 +31,39 @@ void showAddEventDialog(BuildContext context) {
     );
   }
 
+  Future<void> _pickImage(ImageSource source, StateSetter setState) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        _images.add(File(pickedFile.path));
+      });
+    } else {
+      print('No image selected.');
+    }
+  }
+
+  void _showLocationPicker(BuildContext context, StateSetter setState) async {
+    LatLng? location = await Navigator.of(context).push(MaterialPageRoute(
+      builder: (context) => LocationPickerPage(),
+    ));
+    if (location != null) {
+      setState(() {
+        _selectedLocation = location;
+      });
+    }
+  }
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-          Future<void> _pickImage(ImageSource source) async {
-            final pickedFile = await _picker.pickImage(source: source);
-            if (pickedFile != null) {
-              setState(() {
-                _images.add(File(pickedFile.path));
-              });
-            } else {
-              print('No image selected.');
-            }
-          }
-
           return AlertDialog(
             title: Text('Add Event'),
             content: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: 10), // Space between TextField and Row
+                  SizedBox(height: 10),
                   TextField(
                     controller: _titleController,
                     decoration: InputDecoration(labelText: 'Title'),
@@ -58,7 +72,7 @@ void showAddEventDialog(BuildContext context) {
                     controller: _descriptionController,
                     decoration: InputDecoration(labelText: 'Description'),
                   ),
-                  SizedBox(height: 10), // Space between TextField and Row
+                  SizedBox(height: 10),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -68,26 +82,24 @@ void showAddEventDialog(BuildContext context) {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_images.length < 5) {
-                              _pickImage(ImageSource.gallery);
+                              _pickImage(ImageSource.gallery, setState);
                             } else {
                               showMaxImageWarning(context);
                             }
                           },
                           icon: Icon(
                             Icons.photo,
-                            color: Theme.of(context)
-                                .primaryColor, // Primary color of the app
+                            color: Theme.of(context).primaryColor,
                           ),
                           label: Text(
                             'Upload Photos',
                             style: TextStyle(
                               fontSize: 10,
-                              color: Theme.of(context)
-                                  .primaryColor, // Primary color of the app
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10), // Adjust padding
+                            padding: EdgeInsets.all(10),
                           ),
                         ),
                       ),
@@ -97,26 +109,24 @@ void showAddEventDialog(BuildContext context) {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_images.length < 5) {
-                              _pickImage(ImageSource.camera);
+                              _pickImage(ImageSource.camera, setState);
                             } else {
                               showMaxImageWarning(context);
                             }
                           },
                           icon: Icon(
                             Icons.camera_alt,
-                            color: Theme.of(context)
-                                .primaryColor, // Primary color of the app
+                            color: Theme.of(context).primaryColor,
                           ),
                           label: Text(
                             'Take Photo',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Theme.of(context)
-                                  .primaryColor, // Primary color of the app
+                              color: Theme.of(context).primaryColor,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10), // Adjust padding
+                            padding: EdgeInsets.all(10),
                           ),
                         ),
                       ),
@@ -141,6 +151,35 @@ void showAddEventDialog(BuildContext context) {
                           ),
                         )
                       : Text('No photos selected'),
+                  SizedBox(
+                    width: 120,
+                    height: 40,
+                    child: ElevatedButton.icon(
+                      onPressed: () {
+                        _showLocationPicker(context, setState);
+                      },
+                      icon: Icon(
+                        Icons.map,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      label: Text(
+                        'Select Location',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        padding: EdgeInsets.all(10),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  _selectedLocation != null
+                      ? Text(
+                          'Location: \n${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}')
+                      : Text('No location selected'),
+                  SizedBox(height: 10),
                 ],
               ),
             ),
@@ -149,8 +188,7 @@ void showAddEventDialog(BuildContext context) {
                 child: Text(
                   'Cancel',
                   style: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor, // Primary color of the app
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 onPressed: () {
@@ -161,16 +199,15 @@ void showAddEventDialog(BuildContext context) {
                 child: Text(
                   'Save',
                   style: TextStyle(
-                    color: Theme.of(context)
-                        .primaryColor, // Primary color of the app
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
                 onPressed: () {
                   // Logic to save the event
                   String title = _titleController.text;
                   String description = _descriptionController.text;
-                  print('Title: $title, Description: $description');
-                  // Here you can handle the images (_images) as needed
+                  print(
+                      'Title: $title, Description: $description, Location: $_selectedLocation');
                   Navigator.of(context).pop();
                 },
               ),
@@ -180,4 +217,30 @@ void showAddEventDialog(BuildContext context) {
       );
     },
   );
+}
+
+class LocationPickerPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Select Location'),
+      ),
+      body: FlutterMap(
+        options: MapOptions(
+          center: LatLng(38.699575, -0.474774),
+          zoom: 11.0,
+          onTap: (tapPosition, point) {
+            Navigator.of(context).pop(point);
+          },
+        ),
+        children: [
+          TileLayer(
+            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+            subdomains: ['a', 'b', 'c'],
+          ),
+        ],
+      ),
+    );
+  }
 }
