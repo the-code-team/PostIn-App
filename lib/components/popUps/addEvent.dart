@@ -8,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import 'package:postin_app/components/jsonComunicator/jsonIO.dart';
+
 void showAddEventDialog(BuildContext context) {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
@@ -73,41 +75,6 @@ void showAddEventDialog(BuildContext context) {
     }
   }
 
-  Future<List<Map<String, dynamic>>> readEventsFile() async {
-    final directory = await getApplicationDocumentsDirectory();
-    // final filePath = '${directory.path}/location_events.json';
-    final filePath = 'assets/location_events.json';
-
-
-    final String jsonString = await rootBundle.loadString(filePath);
-    final List<dynamic> jsonData = json.decode(jsonString);
-    return List<Map<String, dynamic>>.from(jsonData);
-  }
-
-  Future<void> writeEventsFile(List<Map<String, dynamic>> events) async {
-    // Obtener el directorio de documentos
-    final directory = await getApplicationDocumentsDirectory();
-    final filePath = '${directory.path}/location_events.json';
-    final file = File(filePath);
-
-    List<dynamic> jsonMap;
-
-    // Leer el contenido del archivo JSON desde el sistema de archivos si existe
-    if (await file.exists()) {
-      final jsonString = await file.readAsString();
-      jsonMap = json.decode(jsonString) as List<dynamic>;
-    } else {
-      // Si el archivo no existe, inicializar la lista vacía
-      jsonMap = [];
-    }
-
-    // Agregar los nuevos eventos al archivo existente
-    jsonMap.addAll(events);
-
-    // Escribir el archivo JSON actualizado en el sistema de archivos
-    await file.writeAsString(json.encode(jsonMap));
-  }
-
 // Dentro de la función _validateAndSave, después de imprimir los detalles del evento
   void _validateAndSave(StateSetter setState) async {
     setState(() {
@@ -123,9 +90,6 @@ void showAddEventDialog(BuildContext context) {
       String description = _descriptionController.text;
       print(
           'Title: $title, Description: $description, Location: $_selectedLocation');
-
-
-
 
       // Leer el archivo JSON actual
       List<Map<String, dynamic>> events = await readEventsFile();
