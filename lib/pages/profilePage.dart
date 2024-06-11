@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'ConfigurationPage.dart';
 import 'PersonalInfoPage.dart';
 import 'BlockedUsersPage.dart';
-import 'InterestsPage.dart';
 import 'SecuritySettingsPage.dart';
 import 'LogoutPage.dart';
 
 String userName = 'PATRICIA';
 int userAge = 30;
 String userImage = 'assets/avatar.png';
-List<String> userInterests = [
-  'Interés 1',
-  'Interés 2',
-  'Interés 3',
-  'Interés 4'
-];
+List<String> userInterests = ['Deporte', 'Fiesta', 'UPV', 'Alcoy'];
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -112,7 +106,6 @@ class ProfilePage extends StatelessWidget {
                     SizedBox(height: 5),
                     buildListItem(
                         Icons.person, 'Informacion Personal', context),
-                    buildListItem(Icons.interests, 'Intereses', context),
                     buildListItem(Icons.description, 'Tu biografía', context),
                     buildListItem(Icons.security,
                         'Configuraciones de seguridad', context),
@@ -140,7 +133,6 @@ class ProfilePage extends StatelessWidget {
         Divider(),
       ],
     );
-    ;
   }
 
   void navigateToPage(BuildContext context, String title) {
@@ -152,15 +144,6 @@ class ProfilePage extends StatelessWidget {
             image: userImage,
             userName: userName,
             age: userAge,
-            interests: userInterests,
-          ),
-        ),
-      );
-    } else if (title == 'Intereses') {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => InterestsPage(
             interests: userInterests,
           ),
         ),
