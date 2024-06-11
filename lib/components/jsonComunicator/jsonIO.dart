@@ -4,7 +4,7 @@ import 'package:path_provider/path_provider.dart';
 import 'dart:convert';
 
 Future<List<Map<String, dynamic>>> readEventsFileAssets() async {
-  final directory = await getApplicationDocumentsDirectory();
+  // final directory = await getApplicationDocumentsDirectory();
   // final filePath = '${directory.path}/location_events.json';
   final filePath = 'assets/location_events.json';
 
@@ -74,12 +74,11 @@ Future<void> writeEventsFile(List<Map<String, dynamic>> events) async {
   }
 }
 
-// Dentro de la función _validateAndSave, después de imprimir los detalles del evento
-void saveInMemory() async {
+Future<void> saveInMemory() async {
   // Leer el archivo JSON actual
   List<Map<String, dynamic>> events = await readEventsFileAssets();
   print(">>>>> " + events.length.toString());
 
   // Escribir la lista actualizada de eventos en el archivo JSON
-  writeEventsFile(events);
+  await writeEventsFile(events); // Espera a que se complete la escritura
 }
