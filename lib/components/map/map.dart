@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_map/flutter_map.dart';
-import 'package:postin_app/components/titles/titleBar.dart';
-import 'package:postin_app/pages/eventDetailsPageAddEvent.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:path_provider/path_provider.dart';
+import 'dart:io';
 
 class LocationEvent {
   final LatLng coordinates;
@@ -15,7 +15,9 @@ class LocationEvent {
   factory LocationEvent.fromJson(Map<String, dynamic> json) {
     return LocationEvent(
       coordinates: LatLng(
-          json['coordinates']['latitude'], json['coordinates']['longitude']),
+        json['coordinates']['latitude'],
+        json['coordinates']['longitude'],
+      ),
       identifier: json['identifier'],
     );
   }
@@ -38,9 +40,21 @@ class _MapComponentState extends State<MapComponent> {
   }
 
   Future<List<LocationEvent>> loadLocationEvents() async {
-    final String response =
-        await rootBundle.loadString('assets/location_events.json');
-    final List<dynamic> data = json.decode(response);
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/location_events.json';
+
+    // Check if the file exists
+    final file = File(filePath);
+    if (!file.existsSync()) {
+      // If the file does not exist, return an empty list
+      return [];
+    }
+
+    // Read the file and decode its content
+    final String contents = await file.readAsString();
+    final List<dynamic> data = json.decode(contents);
+
+    // Map the JSON data to LocationEvent objects
     return data.map((json) => LocationEvent.fromJson(json)).toList();
   }
 
@@ -58,13 +72,7 @@ class _MapComponentState extends State<MapComponent> {
         point: event.coordinates,
         child: GestureDetector(
           onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) =>
-                    EventDetailsPageAddEvent(eventName: event.identifier),
-              ),
-            );
+            // Implement onTap logic here
           },
           child: Container(
             child: Column(
@@ -100,7 +108,7 @@ class _MapComponentState extends State<MapComponent> {
             children: [
               openStreetMapTileLayer,
               MarkerLayer(markers: getMarkers(context, snapshot.data!)),
-              buildTitleBar(context),
+              // Add other map components here
             ],
           );
         }
