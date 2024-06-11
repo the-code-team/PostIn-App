@@ -1,6 +1,10 @@
+import 'dart:io';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:path_provider/path_provider.dart';
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -69,7 +73,43 @@ void showAddEventDialog(BuildContext context) {
     }
   }
 
-  void _validateAndSave(StateSetter setState) {
+  Future<List<Map<String, dynamic>>> readEventsFile() async {
+    final directory = await getApplicationDocumentsDirectory();
+    // final filePath = '${directory.path}/location_events.json';
+    final filePath = 'assets/location_events.json';
+
+
+    final String jsonString = await rootBundle.loadString(filePath);
+    final List<dynamic> jsonData = json.decode(jsonString);
+    return List<Map<String, dynamic>>.from(jsonData);
+  }
+
+  Future<void> writeEventsFile(List<Map<String, dynamic>> events) async {
+    // Obtener el directorio de documentos
+    final directory = await getApplicationDocumentsDirectory();
+    final filePath = '${directory.path}/location_events.json';
+    final file = File(filePath);
+
+    List<dynamic> jsonMap;
+
+    // Leer el contenido del archivo JSON desde el sistema de archivos si existe
+    if (await file.exists()) {
+      final jsonString = await file.readAsString();
+      jsonMap = json.decode(jsonString) as List<dynamic>;
+    } else {
+      // Si el archivo no existe, inicializar la lista vacía
+      jsonMap = [];
+    }
+
+    // Agregar los nuevos eventos al archivo existente
+    jsonMap.addAll(events);
+
+    // Escribir el archivo JSON actualizado en el sistema de archivos
+    await file.writeAsString(json.encode(jsonMap));
+  }
+
+// Dentro de la función _validateAndSave, después de imprimir los detalles del evento
+  void _validateAndSave(StateSetter setState) async {
     setState(() {
       _titleError = _titleController.text.isEmpty ? 'Title is required' : '';
       _descriptionError =
@@ -83,6 +123,26 @@ void showAddEventDialog(BuildContext context) {
       String description = _descriptionController.text;
       print(
           'Title: $title, Description: $description, Location: $_selectedLocation');
+
+
+
+
+      // Leer el archivo JSON actual
+      List<Map<String, dynamic>> events = await readEventsFile();
+      print(">>>>> " + events.length.toString());
+
+      // Agregar el nuevo evento
+      events.add({
+        "coordinates": {
+          "latitude": _selectedLocation!.latitude,
+          "longitude": _selectedLocation!.longitude
+        },
+        "identifier": "ID${events.length + 1}"
+      });
+
+      // Escribir la lista actualizada de eventos en el archivo JSON
+      writeEventsFile(events);
+
       Navigator.of(context).pop();
     }
   }
