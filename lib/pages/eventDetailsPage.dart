@@ -48,6 +48,16 @@ class eventDetailsPage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text('Esta es la descripción del evento.'),
+<<<<<<< Updated upstream
+=======
+              if (event.isUpcoming) ...[
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text('Cancelar'),
+                ),
+              ],
+>>>>>>> Stashed changes
             ],
           ),
         ),
