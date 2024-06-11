@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'Event.dart';
 
-class eventDetailsPage extends StatelessWidget {
-  final String eventName;
+class EventDetailsPage extends StatelessWidget {
+  final Event event;
 
-  eventDetailsPage({required this.eventName});
+  EventDetailsPage({required this.event});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(eventName),
+        title: Text(event.name),
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -25,7 +26,7 @@ class eventDetailsPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset(
-                    'assets/next_event_image.jpg',
+                    event.image,
                     height: 200,
                     fit: BoxFit.cover,
                   ),
@@ -33,12 +34,17 @@ class eventDetailsPage extends StatelessWidget {
               ),
               SizedBox(height: 20),
               Text(
-                'Host: Nombre del Host',
+                '${event.host}',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               SizedBox(height: 10),
               Text(
-                'Fecha: DD/MM/YY - DD/MM/YY',
+                'Fecha: ${event.startDate.day}/${event.startDate.month}/${event.startDate.year} - ${event.endDate.day}/${event.endDate.month}/${event.endDate.year}',
+                style: TextStyle(fontSize: 18),
+              ),
+              SizedBox(height: 10),
+              Text(
+                'Ubicación: ${event.location}',
                 style: TextStyle(fontSize: 18),
               ),
               SizedBox(height: 10),
@@ -48,16 +54,15 @@ class eventDetailsPage extends StatelessWidget {
               ),
               SizedBox(height: 10),
               Text('Esta es la descripción del evento.'),
-<<<<<<< Updated upstream
-=======
               if (event.isUpcoming) ...[
                 SizedBox(height: 20),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // Implementa la lógica para cancelar el evento aquí.
+                  },
                   child: Text('Cancelar'),
                 ),
               ],
->>>>>>> Stashed changes
             ],
           ),
         ),
