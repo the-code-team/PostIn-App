@@ -4,6 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+import 'package:postin_app/home.dart';
+
 import 'package:postin_app/components/jsonComunicator/jsonIO.dart';
 
 void showAddEventDialog(BuildContext context) {
@@ -103,7 +105,12 @@ void showAddEventDialog(BuildContext context) {
       // Escribir la lista actualizada de eventos en el archivo JSON
       writeEventsFile(events);
 
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop(true);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+      );
     }
   }
 
