@@ -5,6 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:postin_app/components/titles/titleBar.dart';
 
 class LocationEvent {
   final LatLng coordinates;
@@ -109,6 +110,7 @@ class _MapComponentState extends State<MapComponent> {
               openStreetMapTileLayer,
               MarkerLayer(markers: getMarkers(context, snapshot.data!)),
               // Add other map components here
+              buildTitleBar(context),
             ],
           );
         }
