@@ -10,6 +10,14 @@
     {
       "coordinates": {"latitude": 38.699575, "longitude": -0.491774},
       "identifier": "ID3"
+    },
+    {
+      "coordinates":{"latitude":38.987693169149004, "longitude":-0.5232210955350293},
+      "identifier":"ID4"
+    },
+    {
+      "coordinates":{"latitude":39.47083865153504, "longitude":-0.3808835782302334},
+      "identifier":"ID5"
     }
   ]
   
