@@ -1,21 +1,31 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
-<<<<<<< Updated upstream
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-=======
->>>>>>> Stashed changes
+import 'package:postin_app/home.dart';
+import 'package:postin_app/components/jsonComunicator/jsonIO.dart';
 
 void showAddEventDialog(BuildContext context) {
   final _titleController = TextEditingController();
   final _descriptionController = TextEditingController();
   final ImagePicker _picker = ImagePicker();
   List<File> _images = [];
-<<<<<<< Updated upstream
   LatLng? _selectedLocation;
-=======
->>>>>>> Stashed changes
+  bool _isSaveButtonEnabled = false;
+  String _titleError = '';
+  String _descriptionError = '';
+  String _imagesError = '';
+  String _locationError = '';
+
+  void updateSaveButtonState(StateSetter setState) {
+    setState(() {
+      _isSaveButtonEnabled = _titleController.text.isNotEmpty &&
+          _descriptionController.text.isNotEmpty &&
+          _images.isNotEmpty &&
+          _selectedLocation != null;
+    });
+  }
 
   void showMaxImageWarning(BuildContext context) {
     showDialog(
@@ -37,12 +47,12 @@ void showAddEventDialog(BuildContext context) {
     );
   }
 
-<<<<<<< Updated upstream
   Future<void> _pickImage(ImageSource source, StateSetter setState) async {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
       setState(() {
         _images.add(File(pickedFile.path));
+        updateSaveButtonState(setState);
       });
     } else {
       print('No image selected.');
@@ -56,54 +66,78 @@ void showAddEventDialog(BuildContext context) {
     if (location != null) {
       setState(() {
         _selectedLocation = location;
+        updateSaveButtonState(setState);
       });
     }
   }
 
-=======
->>>>>>> Stashed changes
+  void _validateAndSave(StateSetter setState) async {
+    setState(() {
+      _titleError = _titleController.text.isEmpty ? 'Title is required' : '';
+      _descriptionError =
+          _descriptionController.text.isEmpty ? 'Description is required' : '';
+      _imagesError = _images.isEmpty ? 'At least one image is required' : '';
+      _locationError = _selectedLocation == null ? 'Location is required' : '';
+    });
+
+    if (_isSaveButtonEnabled) {
+      String title = _titleController.text;
+      String description = _descriptionController.text;
+      print(
+          'Title: $title, Description: $description, Location: $_selectedLocation');
+
+      // Leer el archivo JSON actual
+      List<Map<String, dynamic>> events = await readEventsFile();
+      print(">>>>> " + events.length.toString());
+
+      // Agregar el nuevo evento
+      events.add({
+        "coordinates": {
+          "latitude": _selectedLocation!.latitude,
+          "longitude": _selectedLocation!.longitude
+        },
+        "identifier": "ID${events.length + 1}"
+      });
+
+      // Escribir la lista actualizada de eventos en el archivo JSON
+      writeEventsFile(events);
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => MyHomePage()),
+      );
+    }
+  }
+
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return StatefulBuilder(
         builder: (BuildContext context, StateSetter setState) {
-<<<<<<< Updated upstream
-=======
-          Future<void> _pickImage(ImageSource source) async {
-            final pickedFile = await _picker.pickImage(source: source);
-            if (pickedFile != null) {
-              setState(() {
-                _images.add(File(pickedFile.path));
-              });
-            } else {
-              print('No image selected.');
-            }
-          }
-
->>>>>>> Stashed changes
           return AlertDialog(
             title: Text('Add Event'),
             content: SingleChildScrollView(
               child: Column(
                 children: [
-<<<<<<< Updated upstream
                   SizedBox(height: 10),
-=======
-                  SizedBox(height: 10), // Space between TextField and Row
->>>>>>> Stashed changes
                   TextField(
                     controller: _titleController,
-                    decoration: InputDecoration(labelText: 'Title'),
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                      errorText: _titleError.isEmpty ? null : _titleError,
+                    ),
+                    onChanged: (text) => updateSaveButtonState(setState),
                   ),
                   TextField(
                     controller: _descriptionController,
-                    decoration: InputDecoration(labelText: 'Description'),
+                    decoration: InputDecoration(
+                      labelText: 'Description',
+                      errorText:
+                          _descriptionError.isEmpty ? null : _descriptionError,
+                    ),
+                    onChanged: (text) => updateSaveButtonState(setState),
                   ),
-<<<<<<< Updated upstream
                   SizedBox(height: 10),
-=======
-                  SizedBox(height: 10), // Space between TextField and Row
->>>>>>> Stashed changes
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -113,42 +147,24 @@ void showAddEventDialog(BuildContext context) {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_images.length < 5) {
-<<<<<<< Updated upstream
                               _pickImage(ImageSource.gallery, setState);
-=======
-                              _pickImage(ImageSource.gallery);
->>>>>>> Stashed changes
                             } else {
                               showMaxImageWarning(context);
                             }
                           },
                           icon: Icon(
                             Icons.photo,
-<<<<<<< Updated upstream
                             color: Theme.of(context).primaryColor,
-=======
-                            color: Theme.of(context)
-                                .primaryColor, // Primary color of the app
->>>>>>> Stashed changes
                           ),
                           label: Text(
                             'Upload Photos',
                             style: TextStyle(
                               fontSize: 10,
-<<<<<<< Updated upstream
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(10),
-=======
-                              color: Theme.of(context)
-                                  .primaryColor, // Primary color of the app
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10), // Adjust padding
->>>>>>> Stashed changes
                           ),
                         ),
                       ),
@@ -158,42 +174,24 @@ void showAddEventDialog(BuildContext context) {
                         child: ElevatedButton.icon(
                           onPressed: () {
                             if (_images.length < 5) {
-<<<<<<< Updated upstream
                               _pickImage(ImageSource.camera, setState);
-=======
-                              _pickImage(ImageSource.camera);
->>>>>>> Stashed changes
                             } else {
                               showMaxImageWarning(context);
                             }
                           },
                           icon: Icon(
                             Icons.camera_alt,
-<<<<<<< Updated upstream
                             color: Theme.of(context).primaryColor,
-=======
-                            color: Theme.of(context)
-                                .primaryColor, // Primary color of the app
->>>>>>> Stashed changes
                           ),
                           label: Text(
                             'Take Photo',
                             style: TextStyle(
                               fontSize: 12,
-<<<<<<< Updated upstream
                               color: Theme.of(context).primaryColor,
                             ),
                           ),
                           style: ElevatedButton.styleFrom(
                             padding: EdgeInsets.all(10),
-=======
-                              color: Theme.of(context)
-                                  .primaryColor, // Primary color of the app
-                            ),
-                          ),
-                          style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(10), // Adjust padding
->>>>>>> Stashed changes
                           ),
                         ),
                       ),
@@ -217,8 +215,14 @@ void showAddEventDialog(BuildContext context) {
                             }).toList(),
                           ),
                         )
-                      : Text('No photos selected'),
-<<<<<<< Updated upstream
+                      : Text(
+                          'No photos selected',
+                          style: TextStyle(
+                            color: _imagesError.isEmpty
+                                ? Colors.black
+                                : Colors.red,
+                          ),
+                        ),
                   SizedBox(
                     width: 120,
                     height: 40,
@@ -243,13 +247,15 @@ void showAddEventDialog(BuildContext context) {
                     ),
                   ),
                   SizedBox(height: 10),
-                  _selectedLocation != null
-                      ? Text(
-                          'Location: \n${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}')
-                      : Text('No location selected'),
+                  Text(
+                    _selectedLocation != null
+                        ? 'Location: \n${_selectedLocation!.latitude}, ${_selectedLocation!.longitude}'
+                        : 'No location selected',
+                    style: TextStyle(
+                      color: _locationError.isEmpty ? Colors.black : Colors.red,
+                    ),
+                  ),
                   SizedBox(height: 10),
-=======
->>>>>>> Stashed changes
                 ],
               ),
             ),
@@ -258,12 +264,7 @@ void showAddEventDialog(BuildContext context) {
                 child: Text(
                   'Cancel',
                   style: TextStyle(
-<<<<<<< Updated upstream
                     color: Theme.of(context).primaryColor,
-=======
-                    color: Theme.of(context)
-                        .primaryColor, // Primary color of the app
->>>>>>> Stashed changes
                   ),
                 ),
                 onPressed: () {
@@ -274,26 +275,11 @@ void showAddEventDialog(BuildContext context) {
                 child: Text(
                   'Save',
                   style: TextStyle(
-<<<<<<< Updated upstream
                     color: Theme.of(context).primaryColor,
-=======
-                    color: Theme.of(context)
-                        .primaryColor, // Primary color of the app
->>>>>>> Stashed changes
                   ),
                 ),
                 onPressed: () {
-                  // Logic to save the event
-                  String title = _titleController.text;
-                  String description = _descriptionController.text;
-<<<<<<< Updated upstream
-                  print(
-                      'Title: $title, Description: $description, Location: $_selectedLocation');
-=======
-                  print('Title: $title, Description: $description');
-                  // Here you can handle the images (_images) as needed
->>>>>>> Stashed changes
-                  Navigator.of(context).pop();
+                  _validateAndSave(setState);
                 },
               ),
             ],
@@ -303,7 +289,6 @@ void showAddEventDialog(BuildContext context) {
     },
   );
 }
-<<<<<<< Updated upstream
 
 class LocationPickerPage extends StatelessWidget {
   @override
@@ -330,5 +315,3 @@ class LocationPickerPage extends StatelessWidget {
     );
   }
 }
-=======
->>>>>>> Stashed changes
