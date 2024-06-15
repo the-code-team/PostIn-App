@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
-
 import 'package:postin_app/home.dart';
-
 import 'package:postin_app/components/jsonComunicator/jsonIO.dart';
 
 void showAddEventDialog(BuildContext context) {
@@ -73,7 +71,6 @@ void showAddEventDialog(BuildContext context) {
     }
   }
 
-// Dentro de la función _validateAndSave, después de imprimir los detalles del evento
   void _validateAndSave(StateSetter setState) async {
     setState(() {
       _titleError = _titleController.text.isEmpty ? 'Title is required' : '';
@@ -104,8 +101,6 @@ void showAddEventDialog(BuildContext context) {
 
       // Escribir la lista actualizada de eventos en el archivo JSON
       writeEventsFile(events);
-
-      // Navigator.of(context).pop(true);
 
       Navigator.pushReplacement(
         context,

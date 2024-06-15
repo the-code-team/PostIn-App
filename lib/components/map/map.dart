@@ -74,7 +74,6 @@ class _MapComponentState extends State<MapComponent> {
         point: event.coordinates,
         child: GestureDetector(
           onTap: () {
-            // Implement onTap logic here
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -117,7 +116,6 @@ class _MapComponentState extends State<MapComponent> {
             children: [
               openStreetMapTileLayer,
               MarkerLayer(markers: getMarkers(context, snapshot.data!)),
-              // Add other map components here
               buildTitleBar(context),
             ],
           );
