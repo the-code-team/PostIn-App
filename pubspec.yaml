@@ -37,12 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.6
   latlong2: ^0.9.1
   flutter_map: ^6.1.0
+  emoji_picker_flutter: ^2.2.0
   appinio_swiper: ^2.1.1
   image_picker: ^1.1.1
-<<<<<<< Updated upstream
-  emoji_picker_flutter: ^2.2.0
-=======
->>>>>>> Stashed changes
 
 dev_dependencies:
   flutter_test:
