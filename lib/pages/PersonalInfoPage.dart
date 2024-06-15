@@ -89,3 +89,4 @@ class PersonalInfoPage extends StatelessWidget {
       ),
     );
   }
+}

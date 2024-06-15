@@ -13,21 +13,21 @@ class _ProposalsPageState extends State<ProposalsPage> {
   late AppinioSwiperController _controller;
   final List<User> users = [
     User(
-      'hombre.webp',
+      'assets/hombre.webp',
       'Lucas',
       22,
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       ['Deporte', 'Música', 'Viajar'],
     ),
     User(
-      'duolingo.webp',
+      'assets/duolingo.webp',
       'Duolingo',
       777,
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       ['Idiomas', 'Educación', 'Tecnología'],
     ),
     User(
-      'mujer.webp',
+      'assets/mujer.webp',
       'Veronica',
       19,
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
