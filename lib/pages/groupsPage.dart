@@ -10,13 +10,13 @@ class GroupsPage extends StatefulWidget {
 class _GroupsPageState extends State<GroupsPage> {
   List<Map<String, dynamic>> groups = [
     {
-      'name': 'Group 1',
+      'name': 'Fiesta ibicenca',
       'lastMessage': 'Joui: Hello!',
       'time': '25 of April, 22:04',
       'isPinned': false,
     },
     {
-      'name': 'Group 2',
+      'name': 'Quedada bar',
       'lastMessage': 'Joui: Hello!',
       'time': '24 of April, 15:32',
       'isPinned': false,

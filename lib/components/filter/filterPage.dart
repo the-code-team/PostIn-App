@@ -103,7 +103,7 @@ class _EventsFilterPageState extends State<EventsFilterPage> {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  'Aply',
+                  'Apply',
                   style: TextStyle(
                     color: Theme.of(context)
                         .primaryColor, // Color del texto ajustado
